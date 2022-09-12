@@ -70,11 +70,11 @@
         }).then(function (resp) {
           if (resp.data.status == ResultStatus.OK.value) {
             me.user = resp.data.value;
-            me.$root.setUser(me.user);
-            me.$root.setPermissionList(me.user.permissionList);
-            me.$root.clearMenuList();
-            me.$root.setShowMenu(true);
-            me.$root.clearBreadrumb();
+            me.setUser(me.user);
+            me.setPermissionList(me.user.permissionList);
+            me.clearMenuList();
+            me.setShowMenu(true);
+            me.clearBreadrumb();
             window.Utility.initialQuery();
             if (window.Query.redirect) {
               window.Query.redirect = decodeURIComponent(window.Query.redirect);
