@@ -1,5 +1,10 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import App from './App.vue'
+import router from './router'
+
+import './assets/main.css'
+
 import {userStore} from "@/stores/user.js"
 import {breadcrumbStore} from "@/stores/breadcrumb.js"
 import {permissionStore} from "@/stores/permission.js"
@@ -13,11 +18,7 @@ import piniaPersist from 'pinia-plugin-persist'
 import pagination from '@/components/common/pagination.vue';
 import tableListLoading from '@/components/common/tableListLoading.vue';
 import dateTimePicker from '@/components/common/dateTimePicker.vue';
-
-import App from './App.vue'
-import router from './router'
-
-import './assets/main.css'
+import filters from '@/common/filters'
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -26,6 +27,7 @@ app.use(pinia)
 app.use(router)
 
 app.config.globalProperties.$axios = axios
+app.config.globalProperties.$filters = filters
 app.config.globalProperties.$confirm = confirm
 app.config.globalProperties.$cstModal = cstModal
 app.config.globalProperties.$toaster = toaster
@@ -34,7 +36,6 @@ Object.keys(directives).forEach(k => app.directive(k, directives[k]));
 app.component('pagination', pagination);
 app.component('tableListLoading', tableListLoading);
 app.component('dateTimePicker', dateTimePicker);
-
 
 app.mixin({
     data: function() {

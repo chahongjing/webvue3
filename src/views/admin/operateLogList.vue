@@ -47,13 +47,13 @@
         <tbody v-if='!pager.loading'>
         <tr v-for="(item, index) in list">
           <td class="text-center" v-text='index + 1'></td>
-          <td v-text='$options.filters.enumNameFilter(item.logLevel, "LogLevel")'></td>
+          <td v-text='$filters.enumNameFilter(item.logLevel, "LogLevel")'></td>
           <td class="text-right" v-text='item.duration'></td>
           <td v-text='item.content' :title="item.content"></td>
           <td v-text='item.userName' :title="item.userName"></td>
           <td v-text='item.controller' :title="item.controller"></td>
           <td v-text='item.method' :title="item.method"></td>
-          <td class="text-center" v-text='$options.filters.formatDate(item.createdOn)'></td>
+          <td class="text-center" v-text='$filters.formatDate(item.createdOn)'></td>
           <td class="operate">
             <a class='inline-block mybtn' href='javascript:void(0)' @click='edit(item)' v-authcode='"operateLogList_view"' title='查看'><i
               class='fa fa-eye cf05'></i>

@@ -41,9 +41,9 @@
           <td>
             <a class='block w100p h100p' href='javascript:void(0)' v-text='item.title' @click='edit(item)'></a>
           </td>
-          <td v-text='$options.filters.formatDate(item.upgradeTime)'></td>
+          <td v-text='$filters.formatDate(item.upgradeTime)'></td>
           <td v-text='item.content'></td>
-          <td v-text='$options.filters.formatDate(item.createTime)'></td>
+          <td v-text='$filters.formatDate(item.createTime)'></td>
           <td class='operate'>
             <a class='inline-block mybtn' href='javascript:void(0)' @click='deleteItem(item)' title='删除'>
               <i class='fa fa-trash cf05'></i>

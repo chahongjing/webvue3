@@ -42,10 +42,10 @@
           <td>
             <a class='block w100p h100p' href='javascript:void(0)' @click='edit(item)'><i :class="getFileTypeIcon(item.fileName)"></i>{{item.fileName}}</a>
           </td>
-          <td v-text='$options.filters.formatDate(item.createdDate)'></td>
+          <td v-text='$filters.formatDate(item.createdDate)'></td>
           <td class="text-center" v-text='item.md5' v-tooltip='item.md5'></td>
           <td class="text-center" v-text='commonSrv.getFileSize(item.size)'></td>
-          <td class="text-center" v-text='$options.filters.enumNameFilter(item.status, "FileUploadStatus")'></td>
+          <td class="text-center" v-text='$filters.enumNameFilter(item.status, "FileUploadStatus")'></td>
           <td class="text-center" v-text='item.url' v-tooltip='item.url'></td>
           <td class="text-center" v-text='item.chunks'></td>
           <td class="text-center" v-text='commonSrv.getFileSize(item.chunkSize)'></td>

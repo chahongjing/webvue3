@@ -12,8 +12,8 @@
             <div class='list'>
               <ul>
                 <li class='cls' :class="{'hightlight': log.open}" v-for="log in list">
-                  <p class='date'><span v-text="$options.filters.formatDate(log.upgradeTime, 'yyyy-MM-dd')"
-                                        :title="$options.filters.formatDate(log.upgradeTime)"></span>
+                  <p class='date'><span v-text="$filters.formatDate(log.upgradeTime, 'yyyy-MM-dd')"
+                                        :title="$filters.formatDate(log.upgradeTime)"></span>
                     <span class='detail' @click="showDetail(log)"></span></p>
                   <p class='intro' v-text="log.title"></p>
                   <div class='more'>

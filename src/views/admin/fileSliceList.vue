@@ -35,11 +35,11 @@
         <tr v-for="(item, index) in list">
           <td class="text-center" v-text='((pager.pageNum - 1) * pager.pageSize) + index + 1'></td>
           <td v-text='item.fileStoreName'></td>
-          <td v-text='$options.filters.formatDate(item.createdDate)'></td>
+          <td v-text='$filters.formatDate(item.createdDate)'></td>
           <td class="text-center" v-text='item.creator'></td>
           <td class="text-center" v-text='item.md5' v-tooltip='item.md5'></td>
           <td class="text-center" v-text='commonSrv.getFileSize(item.size)'></td>
-          <td class="text-center" v-text='$options.filters.enumNameFilter(item.status, "FileUploadStatus")'></td>
+          <td class="text-center" v-text='$filters.enumNameFilter(item.status, "FileUploadStatus")'></td>
           <td class="text-center" v-text='item.url' v-tooltip='item.url'></td>
           <td class="text-center" v-text='item.chunk'></td>
           <td class="operate">

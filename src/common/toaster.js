@@ -21,21 +21,27 @@ let init = false;
 
 const toaster = {
   success: function (msg) {
+    console.log(msg)
     // vm.s(msg);
   },
   warning: function (msg) {
+    console.log(msg)
     // vm.w(msg, '提示信息');
   },
   warningWt: function (msg, title) {
+    console.log(msg)
     // vm.w(msg, title);
   },
   info: function (msg) {
+    console.log(msg)
     // vm.i(msg);
   },
   error: function (msg) {
+    console.log(msg)
     // vm.e(msg, '错误信息');
   },
   errorWt: function (msg, title) {
+    console.log(msg)
     // vm.e(msg, title);
   }
 };

@@ -89,14 +89,14 @@
         if(this.isRange()) {
           var arr = [];
           if(this.from) {
-            arr.push(this.$options.filters.formatDate(this.from, this.getFormat()));
+            arr.push(this.$filters.formatDate(this.from, this.getFormat()));
           }
           if(this.to){
-            arr.push(this.$options.filters.formatDate(this.to, this.getFormat()));
+            arr.push(this.$filters.formatDate(this.to, this.getFormat()));
           }
           return arr.join('  -  ');
         } else {
-          return this.$options.filters.formatDate(this.value, this.getFormat());
+          return this.$filters.formatDate(this.value, this.getFormat());
         }
       },
       isRange: function() {

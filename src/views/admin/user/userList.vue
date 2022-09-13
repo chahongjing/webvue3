@@ -50,13 +50,13 @@
             <a class='block w100p h100p' href='javascript:void(0)' v-text='item.name' @click='edit(item)'></a>
           </td>
           <td v-text='item.code + " [ " + item.id + " ]"'></td>
-          <td class='text-center' v-text='$options.filters.formatDate(item.createdOn)'></td>
+          <td class='text-center' v-text='$filters.formatDate(item.createdOn)'></td>
           <td class='text-center'>
             <i class='fa mr0' :class='{"fa-female": item.sex == Sex.FEMALE.value,"fa-male": item.sex == Sex.MALE.value}'></i>
-            <span v-text='$options.filters.enumNameFilter(item.sex, "Sex")'></span>
+            <span v-text='$filters.enumNameFilter(item.sex, "Sex")'></span>
           </td>
-          <td class='text-center' v-text='$options.filters.enumNameFilter(item.type, "UserTypeEnum")'></td>
-          <td class='text-center' v-text='$options.filters.enumNameFilter(item.status, "UserStatus")'></td>
+          <td class='text-center' v-text='$filters.enumNameFilter(item.type, "UserTypeEnum")'></td>
+          <td class='text-center' v-text='$filters.enumNameFilter(item.status, "UserStatus")'></td>
           <td class='operate'>
             <a class='inline-block mybtn' v-authcode='"userList_grant"' href='javascript:void(0)' @click='grant(item, "role")' title='授权角色'>
               <i class='fa fa-id-badge c66c'></i>

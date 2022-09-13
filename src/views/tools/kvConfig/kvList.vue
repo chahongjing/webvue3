@@ -43,7 +43,7 @@
           </td>
           <td v-text='item.value'></td>
           <td v-text='item.memo'></td>
-          <td class='text-center' v-text='$options.filters.formatDate(item.createdOn)'></td>
+          <td class='text-center' v-text='$filters.formatDate(item.createdOn)'></td>
           <td class='operate'>
             <a class='inline-block mybtn' href='javascript:void(0)' @click='deleteItem(item)' title='删除'>
               <i class='fa fa-trash cf05'></i>
