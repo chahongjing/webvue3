@@ -1,26 +1,32 @@
 <template>
   <common-modal :show-modal='showDialog'>
-    <div class="modal-header" slot='headerSlot'>
-      <h5 class="modal-title" v-text='title'></h5>
-      <button type="button" class="close" @click='defaultClose()'>
-        <span class='closeicon' title="关闭">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body" slot="bodySlot" v-text='message'>
-    </div>
-    <div class="modal-footer" slot="footerSlot">
-      <button type="button" class='btn btn-secondary' @click='defaultClose()'>
-        <i class="fa fa-times"></i><span>关闭</span>
-      </button>
-      <button type="button" class='btn btn-purple' @click='defaultConfirm()'>
-        <i class='fa fa-check'></i><span>确定</span>
-      </button>
-    </div>
+    <template #headerSlot>
+      <div class="modal-header">
+        <h5 class="modal-title" v-text='title'></h5>
+        <button type="button" class="close" @click='defaultClose()'>
+          <span class='closeicon' title="关闭">&times;</span>
+        </button>
+      </div>
+    </template>
+    <template #bodySlot>
+      <div class="modal-body" v-text='message'>
+      </div>
+    </template>
+    <template #footerSlot>
+      <div class="modal-footer">
+        <button type="button" class='btn btn-secondary' @click='defaultClose()'>
+          <i class="fa fa-times"></i><span>关闭</span>
+        </button>
+        <button type="button" class='btn btn-purple' @click='defaultConfirm()'>
+          <i class='fa fa-check'></i><span>确定</span>
+        </button>
+      </div>
+    </template>
   </common-modal>
 </template>
 
 <script>
-  import commonModal from '@/components/common/commonModal';
+  import commonModal from '@/components/common/commonModal.vue';
 
   export default {
     name: 'confirm',

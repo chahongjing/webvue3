@@ -1,14 +1,19 @@
 // import Vue from 'vue';
-// import Toastr from 'vue-toastr';
+import Toastr from 'vue-toastr';
 // import 'vue-toastr/dist/vue-toastr.css'
+import { createApp } from 'vue'
+
+// var parent = document.createElement('div');
+// var app = createApp(Toastr);
+// const vm = app.mount(parent)
 
 // const VueComponent = Vue.extend(Toastr);
 // const vm = new VueComponent().$mount();
 // vm.defaultProgressBar = false;
 // vm.defaultPosition = "toast-bottom-right";
 // vm.defaultPreventDuplicates = true;
-// let init = false;
-//
+let init = false;
+
 // if (!init) {
 //   document.body.appendChild(vm.$el);
 //   init = true;

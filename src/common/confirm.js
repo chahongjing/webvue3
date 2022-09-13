@@ -1,7 +1,12 @@
 // import Vue from 'vue'
-// import message from '@/components/common/confirm'
+import message from '@/components/common/confirm.vue'
 // const VueComponent = Vue.extend(message);
 // const vm = new VueComponent().$mount();
+
+var parent = document.createElement('div');
+import { createApp } from 'vue'
+var app = createApp(message);
+const instance = app.mount(parent)
 
 let init = false;
 let defaultBtnOption = {
@@ -11,14 +16,14 @@ let defaultBtnOption = {
 }
 
 function showModal(option) {
-  // Object.assign(vm, option);
-  //
-  // if (!init) {
-  //   document.body.appendChild(vm.$el);
-  //   init = true;
-  // }
-  //
-  // return vm.show();
+  Object.assign(instance, option);
+
+  if (!init) {
+    document.body.appendChild(instance.$el);
+    init = true;
+  }
+
+  return instance.show();
 }
 
 const confirm = {

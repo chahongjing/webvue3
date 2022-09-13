@@ -6,6 +6,9 @@ import {permissionStore} from "@/stores/permission.js"
 import {leftMenuStore} from "@/stores/leftMenu.js"
 import axios from '@/common/axios.js';
 import directives from '@/common/directives';
+import confirm from '@/common/confirm';
+import cstModal from '@/common/customModal';
+import toaster from '@/common/toaster';
 import piniaPersist from 'pinia-plugin-persist'
 import pagination from '@/components/common/pagination.vue';
 import tableListLoading from '@/components/common/tableListLoading.vue';
@@ -23,6 +26,9 @@ app.use(pinia)
 app.use(router)
 
 app.config.globalProperties.$axios = axios
+app.config.globalProperties.$confirm = confirm
+app.config.globalProperties.$cstModal = cstModal
+app.config.globalProperties.$toaster = toaster
 
 Object.keys(directives).forEach(k => app.directive(k, directives[k]));
 app.component('pagination', pagination);

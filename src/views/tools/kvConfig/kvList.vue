@@ -61,90 +61,102 @@
       <pagination :pager-info='pager'></pagination>
     </div>
     <common-modal :show-modal='showChangePasswordDialog' :options="modalOpt">
-      <div class="modal-header" slot='headerSlot'>
-        <h5 class="modal-title">修改密码</h5>
-        <button type="button" class="close" @click='showChangePasswordDialog = false'>
-          <span class='closeicon' title="关闭">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body pr20" slot="bodySlot">
-        <form class='myform form-label-w100 block-form-group'>
-          <div class="form-group">
-            <label class="form-label req colon">新密码</label>
-            <div class="form-content">
-              <input type="password" class="form-control" placeholder="新密码" autofocus
-                     v-model='password' v-focus/>
+      <template #headerSlot>
+        <div class="modal-header">
+          <h5 class="modal-title">修改密码</h5>
+          <button type="button" class="close" @click='showChangePasswordDialog = false'>
+            <span class='closeicon' title="关闭">&times;</span>
+          </button>
+        </div>
+      </template>
+      <template #bodySlot>
+        <div class="modal-body pr20">
+          <form class='myform form-label-w100 block-form-group'>
+            <div class="form-group">
+              <label class="form-label req colon">新密码</label>
+              <div class="form-content">
+                <input type="password" class="form-control" placeholder="新密码" autofocus
+                       v-model='password' v-focus/>
+              </div>
+              <div class='form-info'>
+                <i class='fa'></i>
+              </div>
             </div>
-            <div class='form-info'>
-              <i class='fa'></i>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer" slot="footerSlot">
-        <button type="button" class="btn btn-secondary" @click='showChangePasswordDialog = false'>
-          <i class='fa fa-times'></i><span>取消</span>
-        </button>
-        <button type="button" class="btn btn-purple" @click='changePassword()'>
-          <i class='fa fa-check'></i><span>确定</span>
-        </button>
-      </div>
+          </form>
+        </div>
+      </template>
+      <template #footerSlot>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click='showChangePasswordDialog = false'>
+            <i class='fa fa-times'></i><span>取消</span>
+          </button>
+          <button type="button" class="btn btn-purple" @click='changePassword()'>
+            <i class='fa fa-check'></i><span>确定</span>
+          </button>
+        </div>
+      </template>
     </common-modal>
 
 
     <common-modal :show-modal='showHitoryDialog' :options="bigModalOpt">
-      <div class="modal-header" slot='headerSlot'>
-        <h5 class="modal-title">历史记录</h5>
-        <button type="button" class="close" @click='showHitoryDialog = false'>
-          <span class='closeicon' title="关闭">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body pr20" slot="bodySlot">
-        <div class='table-list' style="min-height:300px">
-          <table class="table table-hover">
-            <thead>
-            <tr>
-              <th class='w50'>#</th>
-              <th class='w150'>键</th>
-              <th>值</th>
-              <th class="w120">操作人</th>
-              <th class='w190'>创建时间</th>
-              <th class='w60'>操作</th>
-            </tr>
-            </thead>
-            <tbody v-if='!historyPager.loading'>
-            <tr v-for="(item, index) in historyList">
-              <td class="text-center" v-text='((historyPager.pageNum - 1) * historyPager.pageSize) + index + 1'></td>
-              <td v-text='item.code'></td>
-              <td v-text='item.value'></td>
-              <td v-text='item.createByName'></td>
-              <td class='text-center' v-text='$options.filters.formatDate(item.createTime)'></td>
-              <td class='operate'>
-                <a class='inline-block mybtn' href='javascript:void(0)' @click='resetToVersion(item)' title='还原此版本'>
-                  <i class='fa fa-history c9c0'></i>
-                </a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-<!--          <table-list-loading :list='historyList' :loading='historyPager.loading'></table-list-loading>-->
-          <div class='footer-pager'>
-            <pagination :pager-info='historyPager'></pagination>
+      <template #headerSlot>
+        <div class="modal-header">
+          <h5 class="modal-title">历史记录</h5>
+          <button type="button" class="close" @click='showHitoryDialog = false'>
+            <span class='closeicon' title="关闭">&times;</span>
+          </button>
+        </div>
+      </template>
+      <template #bodySlot>
+        <div class="modal-body pr20">
+          <div class='table-list' style="min-height:300px">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th class='w50'>#</th>
+                <th class='w150'>键</th>
+                <th>值</th>
+                <th class="w120">操作人</th>
+                <th class='w190'>创建时间</th>
+                <th class='w60'>操作</th>
+              </tr>
+              </thead>
+              <tbody v-if='!historyPager.loading'>
+              <tr v-for="(item, index) in historyList">
+                <td class="text-center" v-text='((historyPager.pageNum - 1) * historyPager.pageSize) + index + 1'></td>
+                <td v-text='item.code'></td>
+                <td v-text='item.value'></td>
+                <td v-text='item.createByName'></td>
+                <td class='text-center' v-text='$options.filters.formatDate(item.createTime)'></td>
+                <td class='operate'>
+                  <a class='inline-block mybtn' href='javascript:void(0)' @click='resetToVersion(item)' title='还原此版本'>
+                    <i class='fa fa-history c9c0'></i>
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <!--          <table-list-loading :list='historyList' :loading='historyPager.loading'></table-list-loading>-->
+            <div class='footer-pager'>
+              <pagination :pager-info='historyPager'></pagination>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer" slot="footerSlot">
-        <button type="button" class="btn btn-purple" @click='showHitoryDialog = false'>
-          <i class='fa fa-times'></i><span>关闭</span>
-        </button>
-      </div>
+      </template>
+      <template #footerSlot>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-purple" @click='showHitoryDialog = false'>
+            <i class='fa fa-times'></i><span>关闭</span>
+          </button>
+        </div>
+      </template>
     </common-modal>
   </div>
 </template>
 
 <script>
 import commonSrv from '@/common/commonService';
-import commonModal from '@/components/common/commonModal';
+import commonModal from '@/components/common/commonModal.vue';
 
 export default {
     name: 'userList',

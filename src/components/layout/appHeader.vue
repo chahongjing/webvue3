@@ -56,57 +56,63 @@
       </ul>
     </div>
     <common-modal :show-modal='showchangePasswordDialog' :options="modalOpt">
-      <div class="modal-header" slot='headerSlot'>
-        <h5 class="modal-title">修改密码</h5>
-        <button type="button" class="close" @click='showchangePasswordDialog = false'>
-          <span class='closeicon' title="关闭">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body pr30" slot="bodySlot">
-        <form class='myform form-label-w100 block-form-group'>
-          <div class="form-group" :class='getErrorClass("oldPasswordStatus")'>
-            <label class="form-label req colon">原密码</label>
-            <div class="form-content">
-              <input type="password" class="form-control" placeholder="原密码" autofocus
-                     v-model='user.oldPassword' v-focus/>
+      <template #headerSlot>
+        <div class="modal-header">
+          <h5 class="modal-title">修改密码</h5>
+          <button type="button" class="close" @click='showchangePasswordDialog = false'>
+            <span class='closeicon' title="关闭">&times;</span>
+          </button>
+        </div>
+      </template>
+      <template #bodySlot>
+        <div class="modal-body pr30">
+          <form class='myform form-label-w100 block-form-group'>
+            <div class="form-group" :class='getErrorClass("oldPasswordStatus")'>
+              <label class="form-label req colon">原密码</label>
+              <div class="form-content">
+                <input type="password" class="form-control" placeholder="原密码" autofocus
+                       v-model='user.oldPassword' v-focus/>
+              </div>
+              <div class='form-info'>
+                <i class='fa' :title='oldPasswordStatus.t'></i>
+              </div>
+            <span class='error-msg' v-text='oldPasswordStatus.t'></span>
             </div>
-            <div class='form-info'>
-              <i class='fa' :title='oldPasswordStatus.t'></i>
+            <div class="form-group" :class='getErrorClass("newPasswordStatus")'>
+              <label class="form-label req colon">新密码</label>
+              <div class="form-content">
+                <input type="password" class="form-control" placeholder="新密码" autofocus
+                       v-model='user.newPassword' v-focus/>
+              </div>
+              <div class='form-info'>
+                <i class='fa' :title='newPasswordStatus.t'></i>
+              </div>
+            <span class='error-msg' v-text='newPasswordStatus.t'></span>
             </div>
-          <span class='error-msg' v-text='oldPasswordStatus.t'></span>
-          </div>
-          <div class="form-group" :class='getErrorClass("newPasswordStatus")'>
-            <label class="form-label req colon">新密码</label>
-            <div class="form-content">
-              <input type="password" class="form-control" placeholder="新密码" autofocus
-                     v-model='user.newPassword' v-focus/>
+            <div class="form-group" :class='getErrorClass("passwordAgainStatus")'>
+              <label class="form-label req colon">确认密码</label>
+              <div class="form-content">
+                <input type="password" class="form-control" placeholder="确认密码" autofocus
+                       v-model='user.passwordAgain' v-focus/>
+              </div>
+              <div class='form-info'>
+                <i class='fa' :title='passwordAgainStatus.t'></i>
+              </div>
+            <span class='error-msg' v-text='passwordAgainStatus.t'></span>
             </div>
-            <div class='form-info'>
-              <i class='fa' :title='newPasswordStatus.t'></i>
-            </div>
-          <span class='error-msg' v-text='newPasswordStatus.t'></span>
-          </div>
-          <div class="form-group" :class='getErrorClass("passwordAgainStatus")'>
-            <label class="form-label req colon">确认密码</label>
-            <div class="form-content">
-              <input type="password" class="form-control" placeholder="确认密码" autofocus
-                     v-model='user.passwordAgain' v-focus/>
-            </div>
-            <div class='form-info'>
-              <i class='fa' :title='passwordAgainStatus.t'></i>
-            </div>
-          <span class='error-msg' v-text='passwordAgainStatus.t'></span>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer" slot="footerSlot">
-        <button type="button" class="btn btn-outline-purple" @click='showchangePasswordDialog = false'>
-          <i class='fa fa-times fa-plus-myrotate fa-back-myrotate'></i><span>取消</span>
-        </button>
-        <button type="button" class="btn btn-purple mr5" @click="changePassword()">
-          <i class='fa fa-check'></i>确定
-        </button>
-      </div>
+          </form>
+        </div>
+      </template>
+      <template #footerSlot>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-purple" @click='showchangePasswordDialog = false'>
+            <i class='fa fa-times fa-plus-myrotate fa-back-myrotate'></i><span>取消</span>
+          </button>
+          <button type="button" class="btn btn-purple mr5" @click="changePassword()">
+            <i class='fa fa-check'></i>确定
+          </button>
+        </div>
+      </template>
     </common-modal>
   </div>
 </template>

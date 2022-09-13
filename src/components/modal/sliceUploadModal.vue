@@ -1,45 +1,51 @@
 <template>
   <common-modal :show-modal='showDialog' :options="modalOpt">
-    <div class="modal-header" slot='headerSlot'>
-      <h5 class="modal-title" v-text='title'></h5>
-      <button type="button" class="close" @click='defaultClose()'>
-        <span class='closeicon' title="关闭">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body p15" slot="bodySlot">
-      <form class='myform infotip form-label-w60 block-form-group'>
-        <div class="form-group">
-          <label class="form-label">文件：</label>
-          <div class="form-content">
-            <input type="file" id='testFile' class="form-control" multiple placeholder="文件" :disabled="allDisabled"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label">进度：</label>
-          <div class="form-content">
-            <div style="width:90%;margin:10px 0;position: relative">
-              <progress id="progress" max="100" value="0" style="width:100%;height:30px;display:none"></progress>
-              <div class="progress">
-                <div class="progress-bar progress-bar-success progress-bar-striped active" :style="{width: Math.floor(progress) + '%'}">
-                  <span class="sr-only">0%</span>
-                </div>
-              </div>
-              <span style="position:absolute;right:-40px;top:-3px;" v-text="progress + '%'"></span>
+    <template #headerSlot>
+      <div class="modal-header">
+        <h5 class="modal-title" v-text='title'></h5>
+        <button type="button" class="close" @click='defaultClose()'>
+          <span class='closeicon' title="关闭">&times;</span>
+        </button>
+      </div>
+    </template>
+    <template #bodySlot>
+      <div class="modal-body p15">
+        <form class='myform infotip form-label-w60 block-form-group'>
+          <div class="form-group">
+            <label class="form-label">文件：</label>
+            <div class="form-content">
+              <input type="file" id='testFile' class="form-control" multiple placeholder="文件" :disabled="allDisabled"/>
             </div>
           </div>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer" slot="footerSlot">
-      <button type="button" class='btn btn-purple' @click='uploadBigFile()':disabled="allDisabled">
-        <i class='fa fa-upload'></i><span>上传</span>
-      </button>
-    </div>
+          <div class="form-group">
+            <label class="form-label">进度：</label>
+            <div class="form-content">
+              <div style="width:90%;margin:10px 0;position: relative">
+                <progress id="progress" max="100" value="0" style="width:100%;height:30px;display:none"></progress>
+                <div class="progress">
+                  <div class="progress-bar progress-bar-success progress-bar-striped active" :style="{width: Math.floor(progress) + '%'}">
+                    <span class="sr-only">0%</span>
+                  </div>
+                </div>
+                <span style="position:absolute;right:-40px;top:-3px;" v-text="progress + '%'"></span>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </template>
+    <template #footerSlot>
+      <div class="modal-footer">
+        <button type="button" class='btn btn-purple' @click='uploadBigFile()' :disabled="allDisabled">
+          <i class='fa fa-upload'></i><span>上传</span>
+        </button>
+      </div>
+    </template>
   </common-modal>
 </template>
 
 <script>
-import commonModal from '@/components/common/commonModal';
+import commonModal from '@/components/common/commonModal.vue';
 import SparkMD5 from "spark-md5";
 
 export default {

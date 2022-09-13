@@ -1,17 +1,21 @@
 // import Vue from 'vue'
-import audioPlayerModal from '@/components/modal/audioPlayerModal'
-import videoPlayerModal from '@/components/modal/videoPlayerModal'
-import sliceUpload from '@/components/modal/sliceUploadModal'
+import { createApp } from 'vue'
+import audioPlayerModal from '@/components/modal/audioPlayerModal.vue'
+import videoPlayerModal from '@/components/modal/videoPlayerModal.vue'
+import sliceUpload from '@/components/modal/sliceUploadModal.vue'
+import axios from '@/common/axios.js';
 
 function showModal(com, options) {
-  // var tempOption = {};
-  // $.extend(true, tempOption, options || {});
-  // var VueComponent = Vue.extend(com);
-  // var vm = new VueComponent().$mount();
-  // Object.assign(vm, tempOption);
-  // document.body.appendChild(vm.$el);
-  // vm.show();
-  // return vm;
+  var parent = document.createElement('div');
+  var app = createApp(com);
+  app.config.globalProperties.$axios = axios
+  const instance = app.mount(parent)
+  var tempOption = {};
+  $.extend(true, tempOption, options || {});
+  Object.assign(instance, tempOption);
+  document.body.appendChild(instance.$el);
+  instance.show();
+  return instance;
 }
 
 const modal = {

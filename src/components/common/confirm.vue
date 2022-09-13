@@ -1,28 +1,34 @@
 <template>
   <common-modal :show-modal='showDialog' :options="modalOpt">
-    <div class="modal-header" slot='headerSlot'>
-      <h5 class="modal-title" v-text='title'></h5>
-      <button type="button" class="close" @click='defaultClose()'>
-        <span class='closeicon' title="关闭">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body" slot="bodySlot" v-text='message'>
-    </div>
-    <div class="modal-footer" slot="footerSlot">
-      <button type="button" :class='getCancelCls' v-if='closeBtn.show'
-              @click='defaultClose()'>
-        <i :class='getCancelIconCls'></i><span v-text='closeBtn.text'></span>
-      </button>
-      <button type="button" :class='getConfirmCls' v-if='confirmBtn.show'
-              @click='defaultConfirm()'>
-        <i :class='getConfirmIconCls'></i><span v-text='confirmBtn.text'></span>
-      </button>
-    </div>
+    <template v-slot:headerSlot>
+      <div class="modal-header">
+        <h5 class="modal-title" v-text='title'></h5>
+        <button type="button" class="close" @click='defaultClose()'>
+          <span class='closeicon' title="关闭">&times;</span>
+        </button>
+      </div>
+    </template>
+    <template #bodySlot>
+      <div class="modal-body" v-text='message'>
+      </div>
+    </template>
+    <template #footerSlot>
+      <div class="modal-footer">
+        <button type="button" :class='getCancelCls' v-if='closeBtn.show'
+                @click='defaultClose()'>
+          <i :class='getCancelIconCls'></i><span v-text='closeBtn.text'></span>
+        </button>
+        <button type="button" :class='getConfirmCls' v-if='confirmBtn.show'
+                @click='defaultConfirm()'>
+          <i :class='getConfirmIconCls'></i><span v-text='confirmBtn.text'></span>
+        </button>
+      </div>
+    </template>
   </common-modal>
 </template>
 
 <script>
-  import commonModal from '@/components/common/commonModal';
+  import commonModal from '@/components/common/commonModal.vue';
 
   export default {
     name: 'confirm',

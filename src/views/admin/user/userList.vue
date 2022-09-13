@@ -80,34 +80,40 @@
       <pagination :pager-info='pager'></pagination>
     </div>
     <common-modal :show-modal='showChangePasswordDialog' :options="modalOpt">
-      <div class="modal-header" slot='headerSlot'>
-        <h5 class="modal-title">修改密码</h5>
-        <button type="button" class="close" @click='showChangePasswordDialog = false'>
-          <span class='closeicon' title="关闭">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body pr20" slot="bodySlot">
-        <form class='myform form-label-w100 block-form-group'>
-          <div class="form-group">
-            <label class="form-label req colon">新密码</label>
-            <div class="form-content">
-              <input type="password" class="form-control" placeholder="新密码" autofocus
-                     v-model='password' v-focus/>
+      <template #headerSlot>
+        <div class="modal-header">
+          <h5 class="modal-title">修改密码</h5>
+          <button type="button" class="close" @click='showChangePasswordDialog = false'>
+            <span class='closeicon' title="关闭">&times;</span>
+          </button>
+        </div>
+      </template>
+      <template #bodySlot>
+        <div class="modal-body pr20">
+          <form class='myform form-label-w100 block-form-group'>
+            <div class="form-group">
+              <label class="form-label req colon">新密码</label>
+              <div class="form-content">
+                <input type="password" class="form-control" placeholder="新密码" autofocus
+                       v-model='password' v-focus/>
+              </div>
+              <div class='form-info'>
+                <i class='fa'></i>
+              </div>
             </div>
-            <div class='form-info'>
-              <i class='fa'></i>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer" slot="footerSlot">
-        <button type="button" class="btn btn-secondary" @click='showChangePasswordDialog = false'>
-          <i class='fa fa-times'></i><span>取消</span>
-        </button>
-        <button type="button" class="btn btn-purple" @click='changePassword()'>
-          <i class='fa fa-check'></i><span>确定</span>
-        </button>
-      </div>
+          </form>
+        </div>
+      </template>
+      <template #footerSlot>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click='showChangePasswordDialog = false'>
+            <i class='fa fa-times'></i><span>取消</span>
+          </button>
+          <button type="button" class="btn btn-purple" @click='changePassword()'>
+            <i class='fa fa-check'></i><span>确定</span>
+          </button>
+        </div>
+      </template>
     </common-modal>
   </div>
 </template>

@@ -1,24 +1,30 @@
 <template>
   <common-modal :show-modal='showDialog' :options="modalOpt">
-    <div class="modal-header" slot='headerSlot'>
-      <h5 class="modal-title" v-text='title'></h5>
-      <button type="button" class="close" @click='defaultClose()'>
-        <span class='closeicon' title="关闭">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body p0" slot="bodySlot">
-      <video-player :src="src"></video-player>
-    </div>
-    <div class="modal-footer" slot="footerSlot">
-      <button type="button" class='btn btn-dmall' @click='defaultConfirm()' :data-src="src">
-        <i class='fa fa-times'></i><span>关闭</span>
-      </button>
-    </div>
+    <template #headerSlot>
+      <div class="modal-header">
+        <h5 class="modal-title" v-text='title'></h5>
+        <button type="button" class="close" @click='defaultClose()'>
+          <span class='closeicon' title="关闭">&times;</span>
+        </button>
+      </div>
+    </template>
+    <template #bodySlot>
+      <div class="modal-body p0">
+        <video-player :src="src"></video-player>
+      </div>
+    </template>
+    <template #footerSlot>
+      <div class="modal-footer">
+        <button type="button" class='btn btn-dmall' @click='defaultConfirm()' :data-src="src">
+          <i class='fa fa-times'></i><span>关闭</span>
+        </button>
+      </div>
+    </template>
   </common-modal>
 </template>
 
 <script>
-  import commonModal from '@/components/common/commonModal';
+  import commonModal from '@/components/common/commonModal.vue';
 
   export default {
     data() {
