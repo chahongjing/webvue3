@@ -7,9 +7,9 @@
           <template>
             <img :data-type="mediaType.picture" class="file" :src="getShowUrl(file)" alt="图片" title="点击预览"
                  v-if="getFileMediaType(file) == mediaType.picture"/>
-            <img :data-type="mediaType.audio" class="file" @click="playAudio(file)" src="~@assets/M-v-Player_17.png"
+            <img :data-type="mediaType.audio" class="file" @click="playAudio(file)" src="~@/assets/M-v-Player_17.png"
                  alt="音频" title="点击播放" v-if="getFileMediaType(file) == mediaType.audio"/>
-            <img :data-type="mediaType.video" class="file" @click="playVedio(file)" src="~@assets/M-v-Player_16.png"
+            <img :data-type="mediaType.video" class="file" @click="playVedio(file)" src="~@/assets/M-v-Player_16.png"
                  alt="视频" title="点击播放" v-if="getFileMediaType(file) == mediaType.video"/>
           </template>
           <a class="close" @click="delFile(file)" v-show="!isDisabled && type == 1" title="删除附件">
@@ -34,7 +34,7 @@
 
 <script>
   import comSrv from '@/common/commonService';
-  import Viewer from "../../../static/plugins/viewer/js/viewer.js";
+  import {} from "../../../static/plugins/viewer/js/viewer.js";
 
   export default {
     data() {

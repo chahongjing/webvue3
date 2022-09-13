@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import treeItem from '@/components/common/treeItem';
+import treeItem from '@/components/common/treeItem.vue';
   var defaultOption = {
     id: 'defaulttree',
     checktype: 'radio',

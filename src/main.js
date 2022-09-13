@@ -2,7 +2,8 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-
+import 'jquery';
+import '../static/js/jquery-ui.js';
 import './assets/main.css'
 
 import {userStore} from "@/stores/user.js"
@@ -10,6 +11,7 @@ import {breadcrumbStore} from "@/stores/breadcrumb.js"
 import {permissionStore} from "@/stores/permission.js"
 import {leftMenuStore} from "@/stores/leftMenu.js"
 import axios from '@/common/axios.js';
+import filters from '@/common/filters'
 import directives from '@/common/directives';
 import confirm from '@/common/confirm';
 import cstModal from '@/common/customModal';
@@ -18,7 +20,15 @@ import piniaPersist from 'pinia-plugin-persist'
 import pagination from '@/components/common/pagination.vue';
 import tableListLoading from '@/components/common/tableListLoading.vue';
 import dateTimePicker from '@/components/common/dateTimePicker.vue';
-import filters from '@/common/filters'
+import ulTree from '@/components/common/ulTree.vue';
+import processList from '@/components/common/processList.vue';
+// import dateTimeRangePicker from '@/components/common/dateTimeRangePicker.vue';
+// import dateTimeRangePicker2 from '@/components/common/dateTimeRangePicker2.vue';
+// import videoPlayer from '@/components/common/videoPlayer.vue';
+// import audioPlayer from '@/components/common/audioPlayer.vue';
+// import mediaPlayer from '@/components/common/mediaPlayer.vue';
+// import fileUploadAndPreview from '@/components/common/fileUploadAndPreview.vue';
+// import select2 from '@/components/common/select2.vue';
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -36,6 +46,15 @@ Object.keys(directives).forEach(k => app.directive(k, directives[k]));
 app.component('pagination', pagination);
 app.component('tableListLoading', tableListLoading);
 app.component('dateTimePicker', dateTimePicker);
+app.component('ulTree', ulTree);
+app.component('processList', processList);
+// app.component('videoPlayer', videoPlayer);
+// app.component('audioPlayer', audioPlayer);
+// app.component('mediaPlayer', mediaPlayer);
+// app.component('fileUploadAndPreview', fileUploadAndPreview);
+// app.component('select2', select2);
+// app.component('dateTimeRangePicker', dateTimeRangePicker);
+// app.component('dateTimeRangePicker2', dateTimeRangePicker2);
 
 app.mixin({
     data: function() {

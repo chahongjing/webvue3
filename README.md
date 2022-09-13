@@ -42,4 +42,6 @@ npm run lint
 
 
 1. 登录后台未登录axios处理
-2. toaster，modal，挂载vm
+2. toaster
+3. modal.$destory
+4. video，audio，viewer，select2，datetimerangepicker
