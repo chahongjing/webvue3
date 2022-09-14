@@ -203,7 +203,7 @@
       <img-slider :list="mediaList"></img-slider>
       <hr>
       <div class="mt20">
-        <ultree class='w300 mytree' :plainList="treeData" :option='treeoption'></ultree>
+        <ul-tree class='w300 mytree' :plainList="treeData" :option='treeoption'></ul-tree>
       </div>
       <hr>
       hover
@@ -266,8 +266,9 @@
 </template>
 
 <script>
-import imgSlider from '@/components/common/imgSlider';
+// import imgSlider from '@/components/common/imgSlider';
 import SparkMD5 from "spark-md5";
+var imgSlider = {}
 
 var treeDataList = [
     {id: 1, name: '语文语文语文语文语文语文语文语文语文语文语文', pId: null, selected: false, isOpen: false, isLeaf: false},
@@ -369,10 +370,10 @@ var treeDataList = [
     },
     methods: {
       showMyLoading: function () {
-        this.$root.showLoading();
+        this.showLoading();
         var me = this;
         setTimeout(function () {
-          me.$root.hideLoading();
+          me.hideLoading();
         }, 1500)
       },
       showToasterInfo: function () {

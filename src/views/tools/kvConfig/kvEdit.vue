@@ -37,7 +37,7 @@
           </div>
 
           <div class="form-group text-right mb0">
-            <button type="button" class="btn btn-outline-purple" @click='$root.goBack()'>
+            <button type="button" class="btn btn-outline-purple" @click='goBack()'>
               <i class='fa fa-arrow-circle-o-left fa-plus-myrotate fa-back-myrotate'></i><span>返回</span>
             </button>
             <button type="button" class="btn btn-purple mr5" @click="save" :disabled='allDisabled'>
@@ -88,7 +88,7 @@
         this.$axios.post('/kvConfig/save', me.kvConfig).then(function (resp) {
           if (resp.data.status == enumMap.ResultStatus.OK.value) {
             me.$toaster.success('保存成功！');
-            me.$root.goBack();
+            me.goBack();
           } else {
             me.allDisabled = false;
           }

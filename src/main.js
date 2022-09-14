@@ -22,13 +22,13 @@ import tableListLoading from '@/components/common/tableListLoading.vue';
 import dateTimePicker from '@/components/common/dateTimePicker.vue';
 import ulTree from '@/components/common/ulTree.vue';
 import processList from '@/components/common/processList.vue';
+import select2 from '@/components/common/select2.vue';
 // import dateTimeRangePicker from '@/components/common/dateTimeRangePicker.vue';
 // import dateTimeRangePicker2 from '@/components/common/dateTimeRangePicker2.vue';
 // import videoPlayer from '@/components/common/videoPlayer.vue';
-// import audioPlayer from '@/components/common/audioPlayer.vue';
+import audioPlayer from '@/components/common/audioPlayer.vue';
 // import mediaPlayer from '@/components/common/mediaPlayer.vue';
 // import fileUploadAndPreview from '@/components/common/fileUploadAndPreview.vue';
-// import select2 from '@/components/common/select2.vue';
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -48,11 +48,11 @@ app.component('tableListLoading', tableListLoading);
 app.component('dateTimePicker', dateTimePicker);
 app.component('ulTree', ulTree);
 app.component('processList', processList);
+app.component('select2', select2);
 // app.component('videoPlayer', videoPlayer);
-// app.component('audioPlayer', audioPlayer);
+app.component('audioPlayer', audioPlayer);
 // app.component('mediaPlayer', mediaPlayer);
 // app.component('fileUploadAndPreview', fileUploadAndPreview);
-// app.component('select2', select2);
 // app.component('dateTimeRangePicker', dateTimeRangePicker);
 // app.component('dateTimeRangePicker2', dateTimeRangePicker2);
 
@@ -73,7 +73,7 @@ app.mixin({
             userStore().setUser(user)
         },
         clearUser() {
-            userStore().setUser(null)
+            userStore().setUser({})
         },
         getMenuList() {
             return leftMenuStore().leftMenu.menuList

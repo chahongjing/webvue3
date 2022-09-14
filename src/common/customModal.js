@@ -14,7 +14,11 @@ function showModal(com, options) {
   const instance = app.mount(parent)
   var tempOption = {};
   $.extend(true, tempOption, options || {});
-  Object.assign(instance, tempOption);
+  // Object.assign(instance, tempOption);
+  for(var key in tempOption) {
+    instance[key] = tempOption[key]
+    // app.set(key, tempOption[key])
+  }
   document.body.appendChild(instance.$el);
   instance.show();
   return instance;

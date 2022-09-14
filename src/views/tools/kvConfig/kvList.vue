@@ -127,7 +127,7 @@
                 <td v-text='item.code'></td>
                 <td v-text='item.value'></td>
                 <td v-text='item.createByName'></td>
-                <td class='text-center' v-text='$options.filters.formatDate(item.createTime)'></td>
+                <td class='text-center' v-text='$filters.formatDate(item.createTime)'></td>
                 <td class='operate'>
                   <a class='inline-block mybtn' href='javascript:void(0)' @click='resetToVersion(item)' title='还原此版本'>
                     <i class='fa fa-history c9c0'></i>

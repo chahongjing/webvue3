@@ -152,10 +152,10 @@
             url = this.fileDomain + '/' + file.url;
             break;
           case comSrv.mediaType.audio:
-            url = this.$root.resRoot + 'img/M-v-Player_17.png';
+            url = this.resRoot + 'img/M-v-Player_17.png';
             break;
           case comSrv.mediaType.video:
-            url = this.$root.resRoot + 'img/M-v-Player_16.png';
+            url = this.resRoot + 'img/M-v-Player_16.png';
             break;
           default:
             url = this.fileDomain + '/' + file.url;

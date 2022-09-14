@@ -10,7 +10,7 @@
 			</div>
 			<div class="central-body">
 				<img class="image-404" src="../../../static/img/sys/404.svg" width="300px">
-				<button type="button" class="btn btn-outline-purple btn-goback" @click='goBack()'>
+				<button type="button" class="btn btn-outline-purple btn-goback" @click='goToBack()'>
 					<i class='fa fa-arrow-circle-o-left'></i><span>返回</span>
 				</button>
 			</div>
@@ -44,7 +44,7 @@
 			}
 		},
 		methods: {
-			goBack() {
+			goToBack() {
 				// https://codepen.io/androhani/pen/deOpMZ
 				// https://codepen.io/salehriaz/pen/erJrZM
 				// https://codepen.io/Gogh/pen/eeReMO
@@ -52,17 +52,17 @@
 				// https://codepen.io/clementGir/pen/PqGyMq
 				// https://codepen.io/gavra/pen/upHzg
 				// https://codepen.io/igloude/pen/qNNWKr
-				this.$root.goBack();
+				this.goBack();
 			}
 		},
 		mounted:function() {
-		  this.showMenu = this.$root.getShowMenu();
-          this.$root.setShowMenu(false);
-          this.$root.setShowBreadcrumb(false);
+		  this.showMenu = this.getShowMenu();
+          this.setShowMenu(false);
+          this.setShowBreadcrumb(false);
 		},
 		destroyed:function() {
-          this.$root.setShowMenu(this.showMenu);
-          this.$root.setShowBreadcrumb(true);
+          this.setShowMenu(this.showMenu);
+          this.setShowBreadcrumb(true);
 		}
 	}
 </script>

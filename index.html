@@ -5,7 +5,7 @@
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title url="<{VITE_SERVER_URL}>:import.meta.env.VITE_SERVER_PORT">工作台</title>
-      <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
       <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css" />
       <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css" />
       <link rel="stylesheet" href="/static/css/common.css" />
@@ -14,7 +14,14 @@
     <div id="app" class="h100p"></div>
     <script type="module" src="/src/main.js"></script>
     <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script type="module" src="/static/js/jquery-ui.js"></script>
+<!--    <script type="module" src="/static/plugins/jPlayer/js/jquery.jplayer.min.js"></script>-->
     <script src="/static/js/Utility.js"></script>
-    <script src="<{VITE_SERVER_URL}>:import.meta.env.VITE_SERVER_PORT/comm/getEnums"></script>
+    <script vite-if="<{ VITE_ENV }> === dev">
+        document.write('<script src="<{VITE_SERVER_URL}>:import.meta.env.VITE_SERVER_PORT/comm/getEnums"><' + '/script>')
+    </script>
+    <script vite-else>
+        document.write('<script src="/comm/getEnums"><' + '/script>')
+    </script>
   </body>
 </html>

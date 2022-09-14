@@ -14,10 +14,10 @@
         <div class="footer"></div>
       </div>
     </div>
-    <div class="loading" v-if="$root.showLoadingBox">
+    <div class="loading" v-if="showLoadingBox">
       <div>
         <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-        <p v-text="$root.loadingText || '处理中，请稍候...'"></p>
+        <p v-text="loadingText || '处理中，请稍候...'"></p>
       </div>
     </div>
 </template>

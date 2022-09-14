@@ -3,8 +3,8 @@
     <div id='' class='content h100p'>
       <div class='wrapper'>
         <div class='light'><i></i></div>
-        <hr class='line-left'></hr>
-        <hr class='line-right'></hr>
+        <hr class='line-left'><hr/>
+        <hr class='line-right'><hr/>
         <div class='main'>
           <h1 class='title'>客服系统</h1>
           <div class='year'>
@@ -191,7 +191,7 @@
   }
 
   .main .year .list {
-    maring: 10px 0;
+    margin: 10px 0;
     position: relative;
     transition: 1s linear;
   }

@@ -11,6 +11,11 @@ export default defineConfig(({mode}) => {
   console.log('mode:' + mode + '.env:' + JSON.stringify(env))
   return{
     plugins: [vue(), vueJsx(), VitePluginHtmlEnv()],
+    publicDir: 'static',
+    build: {
+      outDir: 'dist',
+      assetsDir: 'static'
+    },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))

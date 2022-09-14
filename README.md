@@ -45,3 +45,4 @@ npm run lint
 2. toaster
 3. modal.$destory
 4. video，audio，viewer，select2，datetimerangepicker
+5. permission

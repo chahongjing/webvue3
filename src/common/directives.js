@@ -7,7 +7,7 @@ export default {
   focus: {
     // 当绑定元素插入到 DOM 中。
 
-    inserted: function (el) {
+    mounted: function (el) {
       // 聚焦元素
       el.focus()
     }
@@ -18,26 +18,26 @@ export default {
     //}
   },
   tooltip: {
-    inserted: function (el, binding, vnode, oldNode) {
+    mounted: function (el, binding, vnode, oldNode) {
       setTooltip(el, binding, vnode);
     },
-    update: function (el, binding, vnode, oldNode) {
+    updated: function (el, binding, vnode, oldNode) {
       setTooltip(el, binding, vnode);
     }
   },
   authcode: {
-    inserted: function (el, binding, vnode, oldNode) {
+    mounted: function (el, binding, vnode, oldNode) {
       handlePermission(el, binding, vnode);
     },
-    update: function (el, binding, vnode, oldNode) {
+    updated: function (el, binding, vnode, oldNode) {
       handlePermission(el, binding, vnode);
     }
   },
   mytest: {
-    inserted: function (el, binding, vnode, oldNode) {
+    mounted: function (el, binding, vnode, oldNode) {
       // console.log("1:" + JSON.stringify(binding));
     },
-    update: function (el, binding, vnode, oldNode) {
+    updated: function (el, binding, vnode, oldNode) {
       // console.log("2:" + JSON.stringify(binding));
     }
   }
@@ -51,14 +51,14 @@ function setTooltip(el, binding, vnode) {
   }
   var $el = $(el);
   try{
-    $el.tooltip('dispose');
+    // $el.tooltip('dispose');
   } catch(e){}
-  $el.tooltip({html: true, title: msg, delay: {'show': 500, 'hide': 0}});
+  // $el.tooltip({html: true, title: msg, delay: {'show': 500, 'hide': 0}});
 }
 
 function handlePermission(el, binding, vnode) {
-  var permissionList = vnode.context.$root.getPermissionList();
-  if(!permissionList || !permissionList.some(item => item == binding.value) && el.parentElement) {
-   el.parentElement.removeChild(el)
-  }
+  // var permissionList = vnode.context.$root.getPermissionList();
+  // if(!permissionList || !permissionList.some(item => item == binding.value) && el.parentElement) {
+  //  el.parentElement.removeChild(el)
+  // }
 }

@@ -5,7 +5,7 @@
 			<p class='tip'>
 				找不到资源
 			</p>
-			<button type="button" class="btn btn-outline-purple" @click='goBack()'>
+			<button type="button" class="btn btn-outline-purple" @click='goToBack()'>
 				<i class='fa fa-arrow-circle-o-left'></i><span>返回</span>
 			</button>
 		</div>
@@ -16,8 +16,8 @@
 	export default {
 		name: 'sys404',
 		methods: {
-			goBack() {
-				this.$root.goBack();
+			goToBack() {
+				this.goBack();
 			}
 		}
 	}

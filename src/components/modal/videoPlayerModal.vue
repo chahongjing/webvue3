@@ -32,10 +32,10 @@
         showDialog: false,
         title: '视频播放',
         closeBtn: {show: true, cls: '', showIcon: true, iconCls: '', text: '关闭', fn: null},
-        modalOpt: {width: '900px',maxWidth: '900px'}
+        modalOpt: {width: '900px',maxWidth: '900px'},
+        src: null
       }
     },
-    props: ['src'],
     methods: {
       show: function () {
         this.showDialog = true;
@@ -45,8 +45,8 @@
         // 删除弹框元素
         var me = this;
         setTimeout(function () {
-          me.$destroy(true);
           me.$el.parentNode.removeChild(me.$el);
+          me.$destroy(true);
         }, 200);
       },
       defaultClose: function () {

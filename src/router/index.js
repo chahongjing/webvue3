@@ -367,7 +367,7 @@ router.beforeEach(function (to, from, next) {
   }
   var user = userStore().user;
   var permissionList = permissionStore().permission.list;
-  if(!user.id && to && to.path != '/login') {
+  if((!user || !user.id) && to && to.path != '/login') {
     next({
       path: 'login',
       query: {redirect: to.fullPath}  // 将跳转的路由path作为参数，登录成功后跳转到该路由

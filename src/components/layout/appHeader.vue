@@ -1,10 +1,10 @@
 <template>
   <div class="head">
     <div class="logo" title="首页">
-      <a class='fl' href='javascript:void(0)' @click='$root.goHome()'>
+      <a class='fl' href='javascript:void(0)' @click='goHome()'>
         <i class="fa fa-android fa-2x white"></i>
       </a>
-      <a class='fl title pl10' href='javascript:void(0)' @click='$root.goHome()'>
+      <a class='fl title pl10' href='javascript:void(0)' @click='goHome()'>
         首页
       </a>
     </div>
@@ -142,7 +142,7 @@
         //this.$confirm.confirm('确定要退出系统吗？', function () {
           me.$axios.get('/user/logout').then(function (resp) {
             if (resp.data.status == ResultStatus.OK.value) {
-              me.$root.clearUser();
+              me.clearUser();
               me.$router.push({path: '/login'});
             }
           });
@@ -224,7 +224,7 @@
         }, 400);
       },
       editInfo() {
-        var user = this.$root.getUser();
+        var user = this.getUser();
         this.$router.push({path: '/user/userEdit', query: {id: user.id, type: 'editSelf'}});
         this.showMenu = false;
       }

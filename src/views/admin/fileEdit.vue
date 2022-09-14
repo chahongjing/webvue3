@@ -131,7 +131,7 @@
             </div>
           </div>
           <div class="form-group text-right mb0">
-            <button type="button" class="btn btn-outline-purple" @click='$root.goBack()'>
+            <button type="button" class="btn btn-outline-purple" @click='goBack()'>
               <i class='fa fa-arrow-circle-o-left fa-plus-myrotate fa-back-myrotate'></i><span>返回</span>
             </button>
           </div>

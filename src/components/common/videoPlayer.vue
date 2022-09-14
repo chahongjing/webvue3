@@ -64,8 +64,8 @@
         // 删除弹框元素
         var me = this;
         setTimeout(function () {
-          me.$destroy(true);
           me.$el.parentNode.removeChild(me.$el);
+          me.$destroy(true);
         }, 200);
       },
       defaultClose: function () {

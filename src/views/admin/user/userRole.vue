@@ -37,9 +37,6 @@
       }
     },
     methods: {
-      goBack() {
-        this.$root.goBack();
-      },
       getUserRole: function (id) {
         var me = this;
         this.$axios.get('/userRole/queryUserRole', {id: id}).then(function (resp) {

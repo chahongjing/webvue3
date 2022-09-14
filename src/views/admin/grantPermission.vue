@@ -108,9 +108,6 @@
       }
     },
     methods: {
-      goBack() {
-        this.$root.goBack();
-      },
       getRolePermission: function (id, type) {
         var me = this;
         this.$axios.get(this.getUrl[this.type], {id: id}).then(function (resp) {

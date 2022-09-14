@@ -33,10 +33,10 @@
         title: '音频播放',
         closeBtn: {show: true, cls: '', showIcon: true, iconCls: '', text: '关闭', fn: null},
         modalOpt: {width: '420px'},
-        isInit: false
+        isInit: false,
+        src: null
       }
     },
-    props: ['src'],
     methods: {
       show: function () {
         this.showDialog = true;
@@ -46,8 +46,8 @@
         // 删除弹框元素
         var me = this;
         setTimeout(function () {
-          me.$destroy(true);
           me.$el.parentNode.removeChild(me.$el);
+          me.$destroy(true);
         }, 200);
       },
       defaultClose: function () {
