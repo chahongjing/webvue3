@@ -13,8 +13,9 @@ export default defineConfig(({mode}) => {
     plugins: [vue(), vueJsx(), VitePluginHtmlEnv()],
     publicDir: 'static',
     build: {
-      outDir: 'dist',
-      assetsDir: 'static'
+      outDir: '../mvc/web/src/main/resources/static',
+      assetsDir: 'js',
+      emptyOutDir: true
     },
     resolve: {
       alias: {
