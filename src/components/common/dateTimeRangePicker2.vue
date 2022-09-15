@@ -11,10 +11,10 @@
 </template>
 
 <script>
-  import flatpickr from "../../../static/plugins/flatpickr/js/flatpickr";
-  import confirmDatePlugin from "../../../static/plugins/flatpickr/js/confirmDate";
-  import monthSelectPlugin from "../../../static/plugins/flatpickr/js/monthSelect";
-  import zh_CN from "../../../static/plugins/flatpickr/js/i18n/zh_CN";
+  // import flatpickr from "../../../static/plugins/flatpickr/js/flatpickr";
+  // import confirmDatePlugin from "../../../static/plugins/flatpickr/js/confirmDate";
+  // import monthSelectPlugin from "../../../static/plugins/flatpickr/js/monthSelect";
+  // import zh_CN from "../../../static/plugins/flatpickr/js/i18n/zh_CN";
 
   export default {
     name: "dateTimeRangePicker2",

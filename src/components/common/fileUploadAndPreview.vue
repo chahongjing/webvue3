@@ -246,7 +246,7 @@
     transition: 0.3s;
   }
   li .close{position:absolute;top:-20px;right:-20px;font-size:18px;width:40px;height:40px;border-radius:20px;background-color: rgba(0,0,0,0.8);display:none;}
-  li .close i{position:absolute;left:5px;bottom:4px;color:#fff;text-shadow: none;}
+  li .close i{position:absolute;left:6px;bottom:4px;color:#fff;text-shadow: none;}
   li label{line-height: 65px;cursor:pointer;}
   li input[type=file]{width:100px;height:70px;opacity: 0;position: absolute;top:0px;left:-30px;cursor:pointer;font-size:0;}
   li label .add{width:100%;height:100%;display:block;background-color: #ccc;color:#fff!important;transition: background-color 0.3s;line-height:65px;}

@@ -44,4 +44,5 @@ npm run lint
 1. 登录后台未登录axios处理
 2. permission指令
 3. modal.$destory
-4. video，audio，viewer，datetimerangepicker，dateTimeRangePicker2，imgSlider
+4. imgSlider,datetimerangepicker，dateTimeRangePicker2
+5. tooltip

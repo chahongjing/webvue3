@@ -25,6 +25,7 @@
 
 <script>
   import commonModal from '@/components/common/commonModal.vue';
+  import videoPlayer from "@/components/common/videoPlayer.vue";
 
   export default {
     data() {
@@ -68,7 +69,7 @@
     },
     mounted: function () {
     },
-    components: {commonModal}
+    components: {commonModal,videoPlayer}
   }
 </script>
 

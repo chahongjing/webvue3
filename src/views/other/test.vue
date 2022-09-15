@@ -1,7 +1,7 @@
 <template>
   <div class="hello h100p oya">
     <div style="width:500px;margin:auto;padding-bottom:200px;">
-      <form class='myform infotip form-label-w110 block-form-group' style="width:487px;margin:auto;">
+      <form class='myform infotip form-label-w110 block-form-group' style="width:525px;margin:auto;">
         <div class="form-group">
           <label class="form-label colon">普通文本框</label>
           <div class="form-content">
@@ -67,37 +67,37 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label colon">日期时间范围{{startDate}}-{{endDate}}</label>
+          <label class="form-label colon">日期时间范围</label>
           <div class="form-content" style="position:initial;">
-            <date-time-range-picker v-model="beginTime" :from.sync="startDate" :to.sync="endDate" :type="4"
+            <date-time-range-picker v-model="beginTime" v-model:from="startDate" v-model:to="endDate" :type="4"
                                     :format="'yyyy-MM-dd HH:mm:ss'"
                                     :disabled="allDisabled"></date-time-range-picker>
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label colon">日期时间</label>
-          <div class="form-content">
-            <date-time-range-picker2 :from.sync="startDate3" :type="3" :disabled="allDisabled"></date-time-range-picker2>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label colon">日期时间范围</label>
-          <div class="form-content">
-            <date-time-range-picker2 :from.sync="startDate4" :to.sync="endDate4" :type="4" :disabled="allDisabled"></date-time-range-picker2>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label colon">时间</label>
-          <div class="form-content">
-            <date-time-range-picker2 v-model="beginTime5" :type="5" :disabled="allDisabled"></date-time-range-picker2>
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="form-label colon">月</label>
-          <div class="form-content">
-            <date-time-range-picker2 v-model="beginTime5" :type="7" :disabled="allDisabled"></date-time-range-picker2>
-          </div>
-        </div>
+<!--        <div class="form-group">-->
+<!--          <label class="form-label colon">日期时间</label>-->
+<!--          <div class="form-content">-->
+<!--            <date-time-range-picker2 :from.sync="startDate3" :type="3" :disabled="allDisabled"></date-time-range-picker2>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label class="form-label colon">日期时间范围</label>-->
+<!--          <div class="form-content">-->
+<!--            <date-time-range-picker2 :from.sync="startDate4" :to.sync="endDate4" :type="4" :disabled="allDisabled"></date-time-range-picker2>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label class="form-label colon">时间</label>-->
+<!--          <div class="form-content">-->
+<!--            <date-time-range-picker2 v-model="beginTime5" :type="5" :disabled="allDisabled"></date-time-range-picker2>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="form-group">-->
+<!--          <label class="form-label colon">月</label>-->
+<!--          <div class="form-content">-->
+<!--            <date-time-range-picker2 v-model="beginTime5" :type="7" :disabled="allDisabled"></date-time-range-picker2>-->
+<!--          </div>-->
+<!--        </div>-->
         <div class="form-group">
           <label class="form-label colon">单选下拉搜索</label>
           <div class="form-content">
@@ -830,6 +830,7 @@ var treeDataList = [
         this.endDate = new Date(new Date().setMonth(new Date().getMonth() + (parseInt(Math.random() * 5) + 1)));
         // this.a = parseInt(Math.random() * 10) % 2 == 0;
         this.b = parseInt(Math.random() * 10) % 2 == 0;
+        this.beginTime = new Date()
       },
       changeDisabled: function() {
         this.allDisabled = !this.allDisabled;
@@ -873,11 +874,11 @@ var treeDataList = [
         me.initDrag();
       });
       this.mediaList.push({url:'workorder/202001/58e03540-87c7-4c3c-ada1-c6d653e990c6.png'});
-      // this.mediaList.push({url:'workorder/202001/00b865b6-25e1-4092-8446-7d4580ed897d.mp3'});
-      // this.mediaList.push({url:'workorder/202001/703a14ca-e601-428d-89a6-0a1abe9fb217.mp4'});
+      this.mediaList.push({url:'workorder/202001/00b865b6-25e1-4092-8446-7d4580ed897d.mp3'});
+      this.mediaList.push({url:'workorder/202001/703a14ca-e601-428d-89a6-0a1abe9fb217.mp4'});
       this.mediaList.push({url:'workorder/202001/10386cc0-8af5-4fd8-a650-39da1229fc3b.png'});
       this.mediaList.push({url:'workorder/202001/c9f82e86-0d32-459d-bf67-d9ddbc976a2e.png'});
-        this.mediaList.push({url:'workorder/202001/3421b695-2db4-410e-9b81-cb2e41d284ad.png'});
+      this.mediaList.push({url:'workorder/202001/3421b695-2db4-410e-9b81-cb2e41d284ad.png'});
 
       this.mediaList.push({url:'workorder/202001/ba71b956-8c62-4d51-b4b7-d17d2728da5a.png'});
       this.mediaList.push({url:'workorder/202001/2d51b60b-b2ed-4cca-ad9e-97aea00918f8.png'});

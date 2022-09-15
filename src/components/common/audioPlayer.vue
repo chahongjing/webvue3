@@ -41,8 +41,10 @@
 </template>
 
 <script>
-  // import "../../../static/plugins/jPlayer/js/jquery.jplayer.min.js";
+import "jplayer";
+import $ from "jquery"
   import commonSrv from '@/common/commonService';
+import 'jplayer/dist/skin/blue.monday/css/jplayer.blue.monday.css'
 
   export default {
     data() {
@@ -165,7 +167,7 @@
   }
 </script>
 
-<style src="../../../static/plugins/jPlayer/css/jplayer.blue.monday.css"></style>
+<!--<style src="../../../static/plugins/jPlayer/css/jplayer.blue.monday.css"></style>-->
 <style scoped>
   .jp-audio {
     border: none;

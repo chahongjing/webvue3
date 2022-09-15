@@ -60,7 +60,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text">&yen;</span>
                 </div>
-                <input type="text" class="form-control border-right-0" maxlength="50">
+                <input type="text" class="form-control border-right-0" v-model="user.email" maxlength="50">
                 <div class="input-group-append">
                   <span class="input-group-text">@qq.com</span>
                 </div>

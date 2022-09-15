@@ -34,11 +34,12 @@ var defaultOption = {
 
   export default {
     name: 'dateTimePicker',
-    props: {option: {disabled:null}, mydate: null, disabled: null, formart:''},
-    model: {
-      prop: 'mydate',
-      event: 'returnBack'
-    },
+    props: {option: {disabled:null}, modelValue: null, disabled: null, formart:''},
+    emits:['update:modelValue'],
+    // model: {
+    //   prop: 'mydate',
+    //   event: 'returnBack'
+    // },
     data(){
       return {
         dataValue: null,
@@ -50,7 +51,8 @@ var defaultOption = {
     },
     methods: {
       returnBackFn() {
-        this.$emit('returnBack', this.dataValue);
+        this.$emit('update:modelValue', this.dataValue)
+        // this.$emit('returnBack', this.dataValue);
       },
       initDate() {
         var me = this;
@@ -85,7 +87,7 @@ var defaultOption = {
       }
     },
     watch: {
-      mydate: {
+      modelValue: {
         handler: function (curVal, oldVal) {
           this.dataValue = curVal;
           this.dataText = this.formatDate(this.dataValue, this.mergeOption.format);

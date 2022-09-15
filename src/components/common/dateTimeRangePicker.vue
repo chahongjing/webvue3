@@ -12,12 +12,15 @@
 </template>
 
 <script>
-  import "../../../static/plugins/dateTimeRangePicker/js/daterangepicker.js";
+// import "jquery"
+import 'moment/dist/moment.js'
+  import "daterangepicker";
 
   export default {
     name: "dateTimeRangePicker",
     // type:1日期，2日期时间，3日期范围，4日期时间范围
-    props: ['from', 'to', 'disabled', 'value', 'options', 'type', 'format'],
+    props: ['from', 'to', 'disabled', 'modelValue', 'options', 'type', 'format'],
+    emits:['update:modelValue','update:from','update:to'],
     computed: {},
     data: function() {
       return {
@@ -96,7 +99,7 @@
           }
           return arr.join('  -  ');
         } else {
-          return this.$filters.formatDate(this.value, this.getFormat());
+          return this.$filters.formatDate(this.modelValue, this.getFormat());
         }
       },
       isRange: function() {
@@ -117,7 +120,7 @@
       change: function(from, to) {
         this.$emit('update:from', from);
         this.$emit('update:to', to);
-        this.$emit('input', from);
+        this.$emit('update:modelValue', from);
       }
     },
     mounted: function () {
@@ -130,7 +133,7 @@
       to: function() {
         this.init();
       },
-      value: function() {
+      modelValue: function() {
         this.init();
       },
     },
@@ -140,7 +143,8 @@
   }
 </script>
 
-<style src="../../../static/plugins/dateTimeRangePicker/css/daterangepicker.css"></style>
+<!--from npm module-->
+<style src="daterangepicker/daterangepicker.css"></style>
 <style>
   .date-time-range-box .date-time-range{font-size:0!important;padding:0;height:31px;}
   .date-time-range-box .date-time-range:focus{border-color:#f59942;}

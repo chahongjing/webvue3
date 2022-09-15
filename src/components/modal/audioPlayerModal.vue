@@ -8,7 +8,7 @@
         </button>
       </div>
     </template>
-    <template #bodySlot>
+    <template v-slot:bodySlot>
       <div class="modal-body p0">
         <audio-player :src="src"></audio-player>
       </div>
@@ -25,6 +25,7 @@
 
 <script>
   import commonModal from '@/components/common/commonModal.vue';
+  import audioPlayer from "@/components/common/audioPlayer.vue";
 
   export default {
     data() {
@@ -69,7 +70,7 @@
     },
     mounted: function () {
     },
-    components: {commonModal}
+    components: {commonModal,audioPlayer}
   }
 </script>
 
