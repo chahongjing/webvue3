@@ -9,7 +9,10 @@ import VitePluginHtmlEnv from 'vite-plugin-html-env'
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, __dirname)
   console.log('mode:' + mode + '.env:' + JSON.stringify(env))
+  var base = ''
+  if(mode !== 'development') base = '/static/'
   return{
+    base: base,
     plugins: [vue(), vueJsx(), VitePluginHtmlEnv()],
     publicDir: 'static',
     build: {

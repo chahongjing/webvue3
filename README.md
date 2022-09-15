@@ -42,7 +42,6 @@ npm run lint
 
 
 1. 登录后台未登录axios处理
-2. toaster
+2. permission指令
 3. modal.$destory
-4. video，audio，viewer，select2，datetimerangepicker
-5. permission
+4. video，audio，viewer，datetimerangepicker，dateTimeRangePicker2，imgSlider

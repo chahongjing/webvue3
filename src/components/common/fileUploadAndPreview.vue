@@ -4,14 +4,12 @@
     <ul class="file-container">
       <li :class="{'disabled': isDisabled}" v-for='file in files'>
         <div class="file-box w100p h100p" v-if="getShowUrl(file)">
-          <template>
-            <img :data-type="mediaType.picture" class="file" :src="getShowUrl(file)" alt="图片" title="点击预览"
-                 v-if="getFileMediaType(file) == mediaType.picture"/>
-            <img :data-type="mediaType.audio" class="file" @click="playAudio(file)" src="~@/assets/M-v-Player_17.png"
-                 alt="音频" title="点击播放" v-if="getFileMediaType(file) == mediaType.audio"/>
-            <img :data-type="mediaType.video" class="file" @click="playVedio(file)" src="~@/assets/M-v-Player_16.png"
-                 alt="视频" title="点击播放" v-if="getFileMediaType(file) == mediaType.video"/>
-          </template>
+          <img :data-type="mediaType.picture" class="file" :src="getShowUrl(file)" alt="图片" title="点击预览"
+               v-if="getFileMediaType(file) == mediaType.picture"/>
+          <img :data-type="mediaType.audio" class="file" @click="playAudio(file)" src="~@/assets/M-v-Player_17.png"
+               alt="音频" title="点击播放" v-if="getFileMediaType(file) == mediaType.audio"/>
+          <img :data-type="mediaType.video" class="file" @click="playVedio(file)" src="~@/assets/M-v-Player_16.png"
+               alt="视频" title="点击播放" v-if="getFileMediaType(file) == mediaType.video"/>
           <a class="close" @click="delFile(file)" v-show="!isDisabled && type == 1" title="删除附件">
             <i>×</i>
           </a>
@@ -34,8 +32,8 @@
 
 <script>
   import comSrv from '@/common/commonService';
-  import {} from "../../../static/plugins/viewer/js/viewer.js";
-
+  import Viewer from 'viewerjs';
+  import 'viewerjs/dist/viewer.css'
   export default {
     data() {
       return {
@@ -84,6 +82,7 @@
           formData.append('myfile', files[i]);
         }
         var me = this;
+
         this.$axios.post('/learn/testPostWithFile', formData).then(function (resp) {
           if (resp.data.status == ResultStatus.OK.value) {
             // me.fileDomain = resp.data.value.fileDomain;
@@ -213,7 +212,6 @@
   }
 </script>
 
-<style src="../../../static/plugins/viewer/css/viewer.css"></style>
 <style scoped>
   .upload-files {
     margin: 0;
@@ -247,8 +245,8 @@
     height: 100%;
     transition: 0.3s;
   }
-  li .close{position:absolute;top:-20px;right:-20px;width:40px;height:40px;border-radius:20px;background-color: rgba(0,0,0,0.8);display:none;}
-  li .close i{position:absolute;left:6px;bottom:1px;color:#fff;text-shadow: none;}
+  li .close{position:absolute;top:-20px;right:-20px;font-size:18px;width:40px;height:40px;border-radius:20px;background-color: rgba(0,0,0,0.8);display:none;}
+  li .close i{position:absolute;left:5px;bottom:4px;color:#fff;text-shadow: none;}
   li label{line-height: 65px;cursor:pointer;}
   li input[type=file]{width:100px;height:70px;opacity: 0;position: absolute;top:0px;left:-30px;cursor:pointer;font-size:0;}
   li label .add{width:100%;height:100%;display:block;background-color: #ccc;color:#fff!important;transition: background-color 0.3s;line-height:65px;}

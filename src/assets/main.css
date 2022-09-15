@@ -1,1 +1,4 @@
 @import "./base.css";
+
+.Vue-Toastification__close-button,.Vue-Toastification__close-button:focus{outline: none}
+i{font-style: normal;}

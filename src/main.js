@@ -5,6 +5,7 @@ import router from './router'
 import 'jquery';
 import '../static/js/jquery-ui.js';
 import './assets/main.css'
+import Toast from "vue-toastification";
 
 import {userStore} from "@/stores/user.js"
 import {breadcrumbStore} from "@/stores/breadcrumb.js"
@@ -26,15 +27,17 @@ import select2 from '@/components/common/select2.vue';
 // import dateTimeRangePicker from '@/components/common/dateTimeRangePicker.vue';
 // import dateTimeRangePicker2 from '@/components/common/dateTimeRangePicker2.vue';
 // import videoPlayer from '@/components/common/videoPlayer.vue';
-import audioPlayer from '@/components/common/audioPlayer.vue';
+// import audioPlayer from '@/components/common/audioPlayer.vue';
 // import mediaPlayer from '@/components/common/mediaPlayer.vue';
-// import fileUploadAndPreview from '@/components/common/fileUploadAndPreview.vue';
+import fileUploadAndPreview from '@/components/common/fileUploadAndPreview.vue';
+// import imgSlider from '@/components/common/imgSlider.vue';
 
 const app = createApp(App)
 const pinia = createPinia()
 pinia.use(piniaPersist)
 app.use(pinia)
 app.use(router)
+app.use(Toast)
 
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.$filters = filters
@@ -50,9 +53,9 @@ app.component('ulTree', ulTree);
 app.component('processList', processList);
 app.component('select2', select2);
 // app.component('videoPlayer', videoPlayer);
-app.component('audioPlayer', audioPlayer);
+// app.component('audioPlayer', audioPlayer);
 // app.component('mediaPlayer', mediaPlayer);
-// app.component('fileUploadAndPreview', fileUploadAndPreview);
+app.component('fileUploadAndPreview', fileUploadAndPreview);
 // app.component('dateTimeRangePicker', dateTimeRangePicker);
 // app.component('dateTimeRangePicker2', dateTimeRangePicker2);
 
