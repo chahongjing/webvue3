@@ -122,6 +122,7 @@
 
   .tree-item-content {
     font-size: 0;
+    clear:both;
   }
 
   .tree-item-content span {

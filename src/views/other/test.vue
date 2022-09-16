@@ -359,7 +359,7 @@ var treeDataList = [
         list2: [],
         fileList: [],
         fileSuffix:['jpg','png','gif','mp3','mp4'],
-        maxFileNum: 8,
+        maxFileNum: 10,
         fileType: 0,
         dataBus:{},
         nodeList: [],
