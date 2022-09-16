@@ -1,7 +1,16 @@
-// import 'jquery';
-// import '../../static/bootstrap/js/popper.min.js';
-// import 'popper.js'
-// import '../../static/bootstrap/js/bootstrap.js';
+import { createPopper } from '@popperjs/core';
+
+var tooltip = null
+function initDom() {
+  if(!tooltip) {
+    tooltip = document.getElementById('tooltip')
+    if(!tooltip) {
+      document.body.appendChild($('<div id="tooltip" role="tooltip"><span></span><div id="arrow" data-popper-arrow></div></div>')[0])
+      tooltip = document.getElementById('tooltip')
+    }
+  }
+}
+initDom()
 
 export default {
   focus: {
@@ -49,11 +58,13 @@ function setTooltip(el, binding, vnode) {
   if (msg === null || msg === undefined) {
     msg = '';
   }
-  var $el = $(el);
-  try{
-    // $el.tooltip('dispose');
-  } catch(e){}
-  // $el.tooltip({html: true, title: msg, delay: {'show': 500, 'hide': 0}});
+      // {placement: 'right'}
+  var popperInstance = createPopper(el, tooltip,{modifiers: [{name: 'offset',options: {offset: [0, 6]}}]});
+  // show(popperInstance, tooltip)
+  el.addEventListener('mouseenter', () => show(popperInstance, tooltip, msg));
+  el.addEventListener('focus', () => show(popperInstance, tooltip, msg));
+  el.addEventListener('mouseleave', () => hide(popperInstance, tooltip));
+  el.addEventListener('blur', () => hide(popperInstance, tooltip));
 }
 
 function handlePermission(el, binding) {
@@ -61,4 +72,36 @@ function handlePermission(el, binding) {
   if(!permissionList || !permissionList.some(item => item == binding.value) && el.parentElement) {
    el.parentElement.removeChild(el)
   }
+}
+
+function show(popperInstance, tooltip, msg) {
+  // Make the tooltip visible
+  tooltip.getElementsByTagName('span')[0].innerHTML = msg
+  tooltip.setAttribute('data-show', '');
+
+  // Enable the event listeners
+  popperInstance.setOptions((options) => ({
+    ...options,
+    modifiers: [
+      ...options.modifiers,
+      { name: 'eventListeners', enabled: true },
+    ],
+  }));
+
+  // Update its position
+  popperInstance.update();
+}
+
+function hide(popperInstance, tooltip) {
+  // Hide the tooltip
+  tooltip.removeAttribute('data-show');
+
+  // Disable the event listeners
+  popperInstance.setOptions((options) => ({
+    ...options,
+    modifiers: [
+      ...options.modifiers,
+      { name: 'eventListeners', enabled: false },
+    ],
+  }));
 }

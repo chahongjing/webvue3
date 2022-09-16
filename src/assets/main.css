@@ -2,3 +2,65 @@
 
 .Vue-Toastification__close-button,.Vue-Toastification__close-button:focus{outline: none}
 i{font-style: normal;}
+
+
+
+#tooltip {
+    background: #fff;
+    border:1px solid rgba(0,0,0,0.4);color:#000;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 13px;
+    cursor: default;
+    display: none;
+}
+
+#tooltip[data-show] {
+    display: block;
+}
+      #arrow,
+      #arrow::before {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: inherit;
+        border:1px solid rgba(0,0,0,0.4);
+      }
+
+      #arrow {
+        visibility: hidden;
+      }
+
+      #arrow::before {
+        visibility: visible;
+        content: '';
+        transform: rotate(45deg);
+      }
+
+      #tooltip[data-popper-placement^='top'] > #arrow {
+        bottom: -4px;
+      }
+        #tooltip[data-popper-placement^='top'] > #arrow::before{
+            border-top: none;border-left: none;
+        }
+
+      #tooltip[data-popper-placement^='bottom'] > #arrow {
+        top: -6px;
+      }
+        #tooltip[data-popper-placement^='bottom'] > #arrow::before{
+            border-bottom: none;border-right: none;
+        }
+
+      #tooltip[data-popper-placement^='left'] > #arrow {
+        right: -4px;
+      }
+        #tooltip[data-popper-placement^='left'] > #arrow::before{
+            border-bottom: none;border-left: none;
+        }
+
+      #tooltip[data-popper-placement^='right'] > #arrow {
+        left: -6px;
+      }
+        #tooltip[data-popper-placement^='right'] > #arrow::before{
+            border-top: none;border-right: none;
+        }
