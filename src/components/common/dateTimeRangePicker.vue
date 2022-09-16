@@ -12,8 +12,6 @@
 </template>
 
 <script>
-// import "jquery"
-import 'moment/dist/moment.js'
   import "daterangepicker";
 
   export default {

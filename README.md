@@ -40,12 +40,9 @@ npm run test:unit
 npm run lint
 ```
 
-
-1. 登录后台未登录axios处理
-2. permission指令
-3. modal.$destory
-4. imgSlider
-5. dateTimeRangePicker2
-6. tooltip
-7. 进度条
-8. moment
+1. moment
+2. tooltip
+3. imgSlider
+4. dateTimeRangePicker2
+5. 进度条
+6. modal.$destory

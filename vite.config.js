@@ -10,7 +10,20 @@ export default defineConfig(({mode}) => {
   const env = loadEnv(mode, __dirname)
   console.log('mode:' + mode + '.env:' + JSON.stringify(env))
   var base = ''
-  if(mode !== 'development') base = '/static/'
+  var proxy = null
+  if(mode !== 'development') {
+    base = '/static/'
+  } else {
+    proxy = {}
+    var reg = new RegExp("^" + env.VITE_PROXY_PREFIX)
+    proxy[env.VITE_PROXY_PREFIX] = {
+      target: env.VITE_SERVER_URL + ':' + env.VITE_SERVER_PORT,
+      changeOrigin: true,
+      rewrite: (path) => path.replace(reg, '')
+    }
+    console.log("proxy:" + JSON.stringify(proxy))
+  }
+
   return{
     base: base,
     plugins: [vue(), vueJsx(), VitePluginHtmlEnv()],
@@ -24,6 +37,9 @@ export default defineConfig(({mode}) => {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       }
+    },
+    server: {
+      proxy: proxy
     }
   }
 })

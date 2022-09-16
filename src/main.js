@@ -13,7 +13,6 @@ import '../static/js/jquery-ui.js';
 import './assets/main.css'
 import Toast from "vue-toastification";
 import piniaPersist from 'pinia-plugin-persist'
-import moment from 'moment';
 
 import axios from '@/common/axios.js';
 import filters from '@/common/filters'
@@ -41,7 +40,6 @@ pinia.use(piniaPersist)
 app.use(pinia)
 app.use(router)
 app.use(Toast)
-app.use(moment)
 
 app.config.globalProperties.$axios = axios
 app.config.globalProperties.$filters = filters

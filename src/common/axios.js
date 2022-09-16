@@ -6,7 +6,7 @@ import 'jquery';
 //import Qs from 'Qs';
 import toaster from '@/common/toaster';
 
-axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL + (import.meta.env.VITE_SERVER_PORT ? (':' + import.meta.env.VITE_SERVER_PORT) : '');
+// axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL + (import.meta.env.VITE_SERVER_PORT ? (':' + import.meta.env.VITE_SERVER_PORT) : '');
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.withCredentials = true;
@@ -143,7 +143,8 @@ function filterResp(resp) {
 
 var axiosIns = {
   getAjaxUrl: function (path) {
-    return path;
+    if (path.indexOf('http') == 0) return path;
+    return import.meta.env.VITE_PROXY_PREFIX + path;
   },
   get: function (path, param) {
     return axios.get(this.getAjaxUrl(path), {params: param}).catch(function (resp) {

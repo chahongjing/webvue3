@@ -27,10 +27,10 @@ export default {
   },
   authcode: {
     mounted: function (el, binding, vnode, oldNode) {
-      handlePermission(el, binding, vnode);
+      handlePermission(el, binding);
     },
     updated: function (el, binding, vnode, oldNode) {
-      handlePermission(el, binding, vnode);
+      handlePermission(el, binding);
     }
   },
   mytest: {
@@ -56,9 +56,9 @@ function setTooltip(el, binding, vnode) {
   // $el.tooltip({html: true, title: msg, delay: {'show': 500, 'hide': 0}});
 }
 
-function handlePermission(el, binding, vnode) {
-  // var permissionList = vnode.context.$root.getPermissionList();
-  // if(!permissionList || !permissionList.some(item => item == binding.value) && el.parentElement) {
-  //  el.parentElement.removeChild(el)
-  // }
+function handlePermission(el, binding) {
+  var permissionList = binding.instance.getPermissionList();
+  if(!permissionList || !permissionList.some(item => item == binding.value) && el.parentElement) {
+   el.parentElement.removeChild(el)
+  }
 }

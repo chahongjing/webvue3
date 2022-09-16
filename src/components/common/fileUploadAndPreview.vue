@@ -83,10 +83,10 @@
         }
         var me = this;
 
-        this.$axios.post('/learn/testPostWithFile', formData).then(function (resp) {
+        this.$axios.post('/file/upload', formData).then(function (resp) {
           if (resp.data.status == ResultStatus.OK.value) {
             // me.fileDomain = resp.data.value.fileDomain;
-            var list = resp.data.value.attachmentList;
+            var list = resp.data.value;
             // var list = [{url: resp.data.value.url}];
             for (var i = 0; i < list.length; i++) {
               var fileTemp = {
