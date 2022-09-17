@@ -347,7 +347,7 @@ var treeDataList = [
         treeoption: treeoption,
         selectValue: null,
         selectValueArr: [],
-        html: '这是<span class="red bold">html</span>内容',
+        html: '这是<span class="red bold" style="color:red;font-weight: bold;">html</span>内容',
         // beginTime: new Date(),
         beginTime: null,
         yn: true,

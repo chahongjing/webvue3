@@ -188,7 +188,9 @@ button:hover:not(:disabled) .fa-plus-myrotate{transform: rotate(360deg);}
 .cf3c{color:#f3c;}
 .cc39{color:#c39;}
 .c96c{color:#96c;}
+.c969{color:#969;}
 .c85c{color:#85c;}
+.cb9b{color:#b9b;}
 .c82a{color:#82a;}
 .c939{color:#939;}
 .c606{color:#606;}
@@ -381,6 +383,20 @@ th.sortheader.desc:before,th.sortheader.asc:after{color:#0c0;}
 .tooltip.bs-tooltip-bottom .arrow:before{border-bottom-color:#555;}
 .tooltip.bs-tooltip-left .arrow:before{border-left-color:#555;}
 .tooltip.show{opacity:1;}
+
+.mytooltip {background: #fff;border:1px solid rgba(0,0,0,0.4);z-index:1100;color:#000;border-radius: 4px;padding: 5px 8px;font-size: 13px;cursor: default;display: none;}
+.mytooltip[data-show] {display: block;}
+.mytooltip .arrow, .mytooltip .arrow::before {position: absolute;width: 8px;height: 8px;background: inherit;border:1px solid rgba(0,0,0,0.4);}
+.mytooltip .arrow {visibility: hidden;}
+.mytooltip .arrow::before {visibility: visible;content: '';transform: rotate(45deg);}
+.mytooltip[data-popper-placement^='top'] > .arrow {bottom: -4px;}
+.mytooltip[data-popper-placement^='top'] > .arrow::before{border-top: none;border-left: none;}
+.mytooltip[data-popper-placement^='bottom'] > .arrow {top: -6px;}
+.mytooltip[data-popper-placement^='bottom'] > .arrow::before{border-bottom: none;border-right: none;}
+.mytooltip[data-popper-placement^='left'] > .arrow {right: -4px;}
+.mytooltip[data-popper-placement^='left'] > .arrow::before{border-bottom: none;border-left: none;}
+.mytooltip[data-popper-placement^='right'] > .arrow {left: -6px;}
+.mytooltip[data-popper-placement^='right'] > .arrow::before{border-top: none;border-right: none;}
 
 .elearn{padding:15px;}
 .elearn .list{padding-left:20px;list-style-type:circle;}

@@ -3,10 +3,10 @@ import { createPopper } from '@popperjs/core';
 var tooltip = null
 function initDom() {
   if(!tooltip) {
-    tooltip = document.getElementById('tooltip')
+    tooltip = document.querySelector('div.mytooltip')
     if(!tooltip) {
-      document.body.appendChild($('<div id="tooltip" role="tooltip"><span></span><div id="arrow" data-popper-arrow></div></div>')[0])
-      tooltip = document.getElementById('tooltip')
+      tooltip = $('<div class="mytooltip" role="tooltip"><span></span><div class="arrow" data-popper-arrow></div></div>')[0]
+      document.body.appendChild(tooltip)
     }
   }
 }
@@ -60,7 +60,7 @@ function setTooltip(el, binding, vnode) {
   }
       // {placement: 'right'}
   var popperInstance = createPopper(el, tooltip,{modifiers: [{name: 'offset',options: {offset: [0, 6]}}]});
-  // show(popperInstance, tooltip)
+  // show(popperInstance, tooltip, '测试<span style="color:red;font-weight:bold;">tool</span>tip')
   el.addEventListener('mouseenter', () => show(popperInstance, tooltip, msg));
   el.addEventListener('focus', () => show(popperInstance, tooltip, msg));
   el.addEventListener('mouseleave', () => hide(popperInstance, tooltip));

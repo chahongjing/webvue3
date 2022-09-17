@@ -88,17 +88,23 @@ export default {
   methods: {
     add() {
       var me = this;
-      this.$cstModal.showSliceUpload({callback: function(resp) {
-          if(resp.data.status === ResultStatus.OK.value){
-            if(resp.data.value.exists) {
-              me.$toaster.warning('文件已存在:' + resp.data.value.url);
-            } else {
-              me.$toaster.success('文件上传完成');
-              me.queryList();
-            }
+      this.$cstModal.showSliceUpload({callback: function(list) {
+        var sucess = 0;
+        var exists = 0;
+        var error = 0;
+        for(var i = 0; i < list.length; i++) {
+          var fileData = list[i].data
+          if(fileData && fileData.exists) {
+            exists++
+          } else if(fileData) {
+            sucess++
+          } else {
+            error++
           }
         }
-      });
+        me.$toaster.success('文件上传完成!成功' + sucess + '个，已存在' + exists + '个，失败' + error + '个！');
+        me.queryList()
+      }});
     },
     edit(entity) {
       this.$router.push({path: '/admin/fileEdit', query: {id: entity.id}});
@@ -147,25 +153,9 @@ export default {
         });
       });
     },
-    getFileType: function (fileName) {
-      var fileMediaType = commonSrv.getFileMediaType(fileName);
-      switch (fileMediaType) {
-        case commonSrv.mediaType.picture: return 'fa-file-image-o';
-        case commonSrv.mediaType.audio: return 'fa-file-audio-o';
-        case commonSrv.mediaType.video: return 'fa-file-video-o';
-        case commonSrv.mediaType.code: return 'fa-file-code-o';
-        case commonSrv.mediaType.excel: return 'fa-file-excel-o';
-        case commonSrv.mediaType.ppt: return 'fa-file-powerpoint-o';
-        case commonSrv.mediaType.word: return 'fa-file-word-o';
-        case commonSrv.mediaType.pdf: return 'fa-file-pdf-o';
-        case commonSrv.mediaType.text: return 'fa-file-text-o';
-        case commonSrv.mediaType.zip: return 'fa-file-archive-o';
-        default: return 'fa-file-o'
-      }
-    },
     getFileTypeIcon: function(fileName) {
       var obj = {fa: true}
-      obj[this.getFileType(fileName)] = true
+      commonSrv.getFileFaType(fileName).forEach(cls => obj[cls] = true)
       return obj
     },
     download: function(entity) {

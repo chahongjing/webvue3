@@ -41,7 +41,6 @@ npm run lint
 ```
 
 1. moment
-2. tooltip
 3. imgSlider
 4. dateTimeRangePicker2
 5. 进度条

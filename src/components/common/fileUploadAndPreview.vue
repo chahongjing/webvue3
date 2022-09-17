@@ -4,14 +4,17 @@
     <ul class="file-container">
       <li :class="{'disabled': isDisabled}" v-for='file in files'>
         <div class="file-box w100p h100p" v-if="getShowUrl(file)">
-          <img :data-type="mediaType.picture" class="file" :src="getShowUrl(file)" alt="图片" title="点击预览"
-               v-if="getFileMediaType(file) == mediaType.picture"/>
+          <img :data-type="mediaType.picture" class="file" :src="getShowUrl(file)" alt="图片"
+               v-if="getFileMediaType(file) == mediaType.picture" v-tooltip="getShowUrl(file)"/>
           <img :data-type="mediaType.audio" class="file" @click="playAudio(file)" src="~@/assets/M-v-Player_17.png"
-               alt="音频" title="点击播放" v-if="getFileMediaType(file) == mediaType.audio"/>
+               alt="音频" v-if="getFileMediaType(file) == mediaType.audio" v-tooltip="getRealUrl(file)"/>
           <img :data-type="mediaType.video" class="file" @click="playVedio(file)" src="~@/assets/M-v-Player_16.png"
-               alt="视频" title="点击播放" v-if="getFileMediaType(file) == mediaType.video"/>
+               alt="视频" v-if="getFileMediaType(file) == mediaType.video" v-tooltip="getRealUrl(file)"/>
           <a class="close" @click="delFile(file)" v-show="!isDisabled && type == 1" title="删除附件">
             <i>×</i>
+          </a>
+          <a class="download-btn" @click="downloadFile(file)" v-show="!isDisabled && type == 1" title="下载附件">
+            <i class="fa fa-download"></i>
           </a>
         </div>
       </li>
@@ -138,6 +141,9 @@
         this.files.splice(this.files.indexOf(key), 1);
         this.init();
       },
+      downloadFile: function(item) {
+        this.$toaster.info('功能建设中。。。')
+      },
       getTip: function () {
         var fsArr = this.fileSuffix || [];
         return '(建议附件格式为：' + fsArr.join(', ') + '，大小不超过' + this.fileMaxSizeStr + '，最多可上传' + (this.maxFileNum || 5) + '个附件)';
@@ -245,8 +251,11 @@
     height: 100%;
     transition: 0.3s;
   }
-  li .close{position:absolute;top:-20px;right:-20px;font-size:18px;width:40px;height:40px;border-radius:20px;background-color: rgba(0,0,0,0.8);display:none;}
-  li .close i{position:absolute;left:7px;bottom:5px;color:#fff;text-shadow: none;}
+  li .close, li .download-btn{position:absolute;top:-20px;right:-20px;font-size:18px;width:40px;height:40px;border-radius:20px;background-color: rgba(0,0,0,0.8);display:none;opacity: 0.5}
+  li .close i, li .download-btn i{position:absolute;left:7px;bottom:5px;color:#fff;text-shadow: none;}
+  li .download-btn{top:auto;bottom:-20px;}
+  li .download-btn i{top:5px;bottom:auto;font-size:12px;}
+
   li label{line-height: 65px;cursor:pointer;}
   li input[type=file]{width:100px;height:70px;opacity: 0;position: absolute;top:0px;left:-30px;cursor:pointer;font-size:0;}
   li label .add{width:100%;height:100%;display:block;background-color: #ccc;color:#fff!important;transition: background-color 0.3s;line-height:65px;}
@@ -255,7 +264,7 @@
   li:not(.disabled):hover .file-box,li:not(.disabled):hover label{border-color: rgb(237, 114, 77);}
   li:hover .file-box img{transform: scale(1.1);}
   li:not(.disabled):hover .add{background-color: rgb(237, 114, 77);}
-  li:not(.disabled):hover .close{display:block;}
+  li:not(.disabled):hover .close,li:not(.disabled):hover .download-btn{display:block;}
 
   li.disabled,li.disabled img{cursor:default;}
   li.disabled{opacity: 0.7;}

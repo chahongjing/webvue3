@@ -10,25 +10,46 @@
     </template>
     <template #bodySlot>
       <div class="modal-body p15">
-        <form class='myform infotip form-label-w60 block-form-group'>
-          <div class="form-group">
+        <form class='myform infotip form-label-w60 block-form-group' style="width:550px">
+          <div class="form-group file-box">
             <label class="form-label">文件：</label>
+            <label class="form-content relative mb0" title="点击选择文件">
+              <span class="upload-btn">
+                <i class="fa fa-upload c71a"></i>
+              </span>
+              <span class="text">个数限制：<span class="font-weight-bold c71a">5</span> 个；每个大小限制：<span class="font-weight-bold c71a">10</span> MB；格式参见说明</span>
+              <input type="file" id='testFile' class="form-control" multiple @change="changeFile" :disabled="allDisabled"/>
+            </label>
+            <div class='form-info pointer' style="display:inline-block;">
+              <i class='fa fa-file-archive-o c39c' v-tooltip="fileSuffixMemo"></i>
+            </div>
+          </div>
+          <div class="form-group" v-if="fileList && fileList.length > 0">
+            <label class="form-label">&nbsp;</label>
             <div class="form-content">
-              <input type="file" id='testFile' class="form-control" multiple placeholder="文件" :disabled="allDisabled"/>
+              <ul>
+                <li v-for="file in fileList">
+                  <i :class="getFileTypeIcon(file)"></i>
+                  <span v-text="file.file.name"></span>
+                  <i class="fa fa-spinner fa-spin ml5 fr c09c" style="font-size:15px;vertical-align: middle" v-if="file.type == 1"></i>
+                  <i class="fa fa-check-circle-o ml5 fr c393" style="font-size:15px;vertical-align: middle" v-if="file.type == 2"></i>
+                  <i class="fa fa-download ml5 fr c393" style="font-size:15px;vertical-align: middle" v-if="file.type == 2"></i>
+                </li>
+              </ul>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label">进度：</label>
             <div class="form-content">
-              <div style="width:90%;margin:10px 0;position: relative">
-                <progress id="progress" max="100" value="0" style="width:100%;height:30px;display:none"></progress>
+              <div style="margin:10px 0;position: relative">
+<!--                <progress id="progress" max="100" value="0" style="width:100%;height:30px;display:none"></progress>-->
                 <div class="progress">
-                  <div class="progress-bar progress-bar-success progress-bar-striped active" :style="{width: Math.floor(progress) + '%'}">
-                    <span class="sr-only">0%</span>
+                  <div class="progress-bar bg-success progress-bar-striped progress-bar-animated active" :style="{width: Math.floor(progress) + '%'}">
                   </div>
                 </div>
-                <span style="position:absolute;right:-40px;top:-3px;" v-text="progress + '%'"></span>
               </div>
+            </div>
+            <div class='form-info' style="display: inline-block;right:-33px;line-height:34px;" v-text="progress + '%'">
             </div>
           </div>
         </form>
@@ -36,7 +57,7 @@
     </template>
     <template #footerSlot>
       <div class="modal-footer">
-        <button type="button" class='btn btn-purple' @click='uploadBigFile()' :disabled="allDisabled">
+        <button type="button" class='btn btn-purple' @click='upload()' :disabled="allDisabled">
           <i class='fa fa-upload'></i><span>上传</span>
         </button>
       </div>
@@ -46,7 +67,9 @@
 
 <script>
 import commonModal from '@/components/common/commonModal.vue';
+import commonSrv from '@/common/commonService';
 import SparkMD5 from "spark-md5";
+import directive from '@/common/directives';
 
 export default {
     data() {
@@ -56,7 +79,11 @@ export default {
         showDialog: false,
         title: '上传文件',
         closeBtn: {show: true, cls: '', showIcon: true, iconCls: '', text: '关闭', fn: null},
-        modalOpt: {width: '600px',maxWidth: '600px'}
+        modalOpt: {width: '600px',maxWidth: '600px'},
+        fileList:[],
+        currFileIndex: -1,
+        unit1Mb: 1024 * 1024,
+        fileSuffixMemo: '支持格式：<span style="color:red">xls</span>, xlsx, doc, docx, ppt, pptx, png, jpg'
       }
     },
     methods: {
@@ -88,30 +115,66 @@ export default {
         me.showDialog = false;
         me.hide();
       },
-      uploadBigFile(){
-        this.allDisabled = true
-        var me = this;
+      changeFile() {
         var files = $('#testFile')[0].files;
         if(!files || files.length === 0) {
-          me.$toaster.warning('请选择要上传的文件！');
-          this.allDisabled = false
+          this.fileList.length = 0
           return;
         }
+        for(var i = 0; i < files.length; i++) {
+          this.fileList.push({file: files[i], type: 0})
+        }
+      },
+      upload(){
+        this.allDisabled = true
+        this.uploadNext();
+      },
+      uploadNext() {
+        this.currFileIndex++
+        if(this.currFileIndex >= this.fileList.length) {
+          this.callback && this.callback(this.fileList)
+          this.defaultClose()
+          this.allDisabled = false
+          return
+        }
+        var fileObj = this.fileList[this.currFileIndex]
+        fileObj.type = 1
+        if(fileObj.file.size > 10 * this.unit1Mb) {
+          this.uploadBigFile(fileObj.file)
+        } else {
+          this.uploadSimple(fileObj.file)
+        }
+      },
+      uploadSimple(file) {
+        var me = this
+        var formData = new FormData();
+        formData.append("myfile", file);
+        this.$axios.post('/file/upload', formData).then(function (resp) {
+          if (resp.data.status == ResultStatus.OK.value) {
+            var fileObj = me.fileList[me.currFileIndex]
+            fileObj.data = resp.data.value
+            fileObj.type = 2
+            me.uploadNext()
+          } else {
+            me.$toaster.error(resp.data.msg);
+            me.allDisabled = false
+          }
+        });
+      },
+      uploadBigFile(file){
         // Read in chunks of 2MB
-        var unit1Mb = 1024 * 1024
-        var file = files[0]
         var param = {
           file: file,
           fileName: file.name,
-          chunkSize: unit1Mb * 2,
-          chunks: Math.ceil(file.size / (unit1Mb * 2)),
+          chunkSize: this.unit1Mb * 2,
+          chunks: Math.ceil(file.size / (this.unit1Mb * 2)),
           chunk: 0,
           fileId: null,
           fileMd5: null,
           size: file.size
         }
         // 超过10mb的大文件只校验前2mb和后2mb
-        if(param.size > 10 * unit1Mb) {
+        if(param.size > 10 * this.unit1Mb) {
           this.uploadByHeadTailMd5(param)
         } else {
           // 小文件校验整个文件的md5
@@ -129,13 +192,12 @@ export default {
               param.fileId = resp.data.value.id;
               param.chunk = resp.data.value.chunk;
             }
-            if(resp.data.status === ResultStatus.OK.value) {
+            if(resp.data.status === ResultStatus.OK.value && resp.data.value.exists) {
               // 文件已存在
-              resp.data.value.exists = true
-              me.callback && me.callback(resp)
-              me.defaultClose()
-              // me.$toaster.warning('file exists:' + resp.data.value.url);
-              me.allDisabled = false
+              var fileObj = me.fileList[me.currFileIndex]
+              fileObj.data = resp.data.value
+              fileObj.type = 2
+              me.uploadNext()
             } else if(resp.data.status === ResultStatus.NO.value) {
               // 没有上传过，开始切片上传
               me.sliceUpload(param);
@@ -156,13 +218,12 @@ export default {
                 param.fileId = resp.data.value.id;
                 param.chunk = resp.data.value.chunk;
               }
-              if(resp.data.status === ResultStatus.OK.value) {
+              if(resp.data.status === ResultStatus.OK.value && resp.data.value.exists) {
                 // 文件已存在
-                resp.data.value.exists = true
-                me.callback && me.callback(resp)
-                me.defaultClose()
-                // me.$toaster.warning('file exists:' + resp.data.value.url);
-                me.allDisabled = false
+                var fileObj = me.fileList[me.currFileIndex]
+                fileObj.data = resp.data.value
+                fileObj.type = 2
+                me.uploadNext()
               } else if(resp.data.status === ResultStatus.NO.value) {
                 // 没有上传过，开始切片上传
                 me.sliceUpload(param);
@@ -179,7 +240,6 @@ export default {
         me.getMd5(chunkFile, (sliceMd5) => {
           var uParam = {fileMd5: param.fileMd5, fileHeadMd5: param.headMd5, fileTailMd5: param.tailMd5, fileId: param.fileId, md5: sliceMd5,size: param.chunkSize,chunk:param.chunk,showMsg:false}
           me.$axios.get('/file/checkSliceMd5', uParam).then(function(resp) {
-
             if(resp.data.status === ResultStatus.OK.value) {
               console.log('slice exists:', resp.data.value.url);
               me.afterSliceUpload(param)
@@ -229,12 +289,13 @@ export default {
         }
         this.$axios.get('/file/mergeSliceFile', param).then(function(resp) {
           if(resp.data.status === ResultStatus.OK.value){
-            me.callback && me.callback(resp)
-            me.defaultClose()
+            var fileObj = me.fileList[me.currFileIndex]
+            fileObj.data = resp.data.value
+            fileObj.type = 2
+            me.uploadNext()
           } else if(resp.data.status === ResultStatus.NO.value) {
             me.$toaster.error('文件合并失败');
           }
-          me.allDisabled = false
         })
       },
       getMd5: function(file, callback) {
@@ -256,11 +317,17 @@ export default {
       },
       getSpark: function() {
         return new SparkMD5.ArrayBuffer()
-      }
+      },
+      getFileTypeIcon: function(item) {
+        var obj = {fa: true}
+        commonSrv.getFileFaType(item.file.name).forEach(cls => obj[cls] = true)
+        return obj
+      },
     },
     mounted: function () {
     },
-    components: {commonModal}
+    components: {commonModal},
+    directives: {'tooltip':directive.tooltip}
   }
 </script>
 
@@ -268,4 +335,11 @@ export default {
   .modal-header {
     border-bottom: none;
   }
+  .file-box .form-content{cursor:pointer;overflow: hidden}
+  .file-box .upload-btn{display:inline-block;line-height:30px;width:33px;height:33px;border:2px dashed #b9b;transition: 0.2s;}
+  .file-box .upload-btn i{margin:0 auto auto 8px;transition: 0.2s;}
+  .file-box .text{display:inline-block;margin-left:5px;}
+  .file-box input[type=file]{opacity:0;position: absolute;cursor: pointer;left: -100px;top: 0;width: calc(100% + 100px)!important;}
+  .file-box:hover .upload-btn{border-color: #71a}
+  .file-box:hover .upload-btn i{transform: scale(1.3)}
 </style>

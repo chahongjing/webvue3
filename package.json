@@ -12,7 +12,6 @@
     "@popperjs/core": "^2.11.6",
     "axios": "^0.27.2",
     "daterangepicker": "^3.1.0",
-    "esbuild-windows-64": "^0.15.7",
     "jplayer": "^2.9.2",
     "jquery": "^3.6.1",
     "pinia": "^2.0.21",
