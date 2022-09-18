@@ -304,6 +304,7 @@ th.sortheader:after{content:'\f0dd';}
 th.sortheader.desc:before,th.sortheader.asc:after{color:#0c0;}
 .nodata{width:100%;height:calc(100% - 47px);line-height: 100%;position:absolute;margin-top:47px;background-color:rgba(0,0,0,0.1);left:0;top:0;}
 .nodata > div{position:absolute;top:50%;left:50%;transform: translate(-50%,-50%);font-weight:bold;font-size: 16px;}
+.page-item a{padding-top:6px;padding-bottom: 6px;}
 
 .fixtable-header-top{position:absolute;top:0;width:100%;}
 .fixtable-header-left{position:absolute;left:0;width:auto;min-width:auto;}

@@ -52,7 +52,7 @@
               <td>
                 <select class="form-control w100p" v-model="item.type">
                   <option value="" disabled>-- 请选择 --</option>
-                  <option v-for="item in typeList" :value="item.value" v-text="item.name"></option>
+                  <option v-for="item in typeList" :value="item.key" v-text="item.name"></option>
                 </select>
               </td>
               <td>

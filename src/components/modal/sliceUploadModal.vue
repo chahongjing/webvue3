@@ -28,7 +28,8 @@
             <label class="form-label">&nbsp;</label>
             <div class="form-content">
               <ul>
-                <li v-for="file in uploadResult.fileList">
+                <li v-for="(file, index) in uploadResult.fileList">
+                  <span v-text="index + 1 + '.'" class="inline-block text-right mr5" style="width:20px;"></span>
                   <i :class="getFileTypeIcon(file)"></i>
                   <span v-text="file.file.name"></span>
                   <i class="fa fa-spinner fa-spin ml5 fr c09c" style="font-size:15px;vertical-align: middle" v-if="file.type == 1"></i>

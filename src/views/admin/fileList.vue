@@ -44,11 +44,11 @@
           </td>
           <td v-text='$filters.formatDate(item.createdDate)'></td>
           <td class="text-center" v-text='item.md5' v-tooltip='item.md5'></td>
-          <td class="text-center" v-text='commonSrv.getFileSize(item.size)'></td>
+          <td class="text-right" v-text='commonSrv.getFileSize(item.size)'></td>
           <td class="text-center" v-text='$filters.enumNameFilter(item.status, "FileUploadStatus")'></td>
           <td class="text-center" v-text='item.url' v-tooltip='item.url'></td>
           <td class="text-center" v-text='item.chunks'></td>
-          <td class="text-center" v-text='commonSrv.getFileSize(item.chunkSize)'></td>
+          <td class="text-right" v-text='commonSrv.getFileSize(item.chunkSize)'></td>
           <td class="operate">
             <a class='inline-block mybtn' href='javascript:void(0)' @click='goToSliceList(item)' v-authcode='"fileSliceList"' title='分片列表' v-if="item.chunks && item.chunks > 1">
               <i class='fa fa-file-text-o cf90'></i>
