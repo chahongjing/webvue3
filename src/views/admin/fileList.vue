@@ -50,7 +50,7 @@
           <td class="text-center" v-text='item.chunks'></td>
           <td class="text-center" v-text='commonSrv.getFileSize(item.chunkSize)'></td>
           <td class="operate">
-            <a class='inline-block mybtn' href='javascript:void(0)' @click='goToSliceList(item)' v-authcode='"fileSliceList"' title='分片列表'>
+            <a class='inline-block mybtn' href='javascript:void(0)' @click='goToSliceList(item)' v-authcode='"fileSliceList"' title='分片列表' v-if="item.chunks && item.chunks > 1">
               <i class='fa fa-file-text-o cf90'></i>
             </a>
             <a class='inline-block mybtn' href='javascript:void(0)' @click='download(item)' v-authcode='"file_download"' title='下载'>

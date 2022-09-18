@@ -169,10 +169,13 @@ button:hover:not(:disabled) .fa-plus-myrotate{transform: rotate(360deg);}
 
 /* 颜色 */
 .white{color:#fff;}
+.c666{color:#666}
 .c933{color:#933;}
 .c906{color:#906;}
 .cc03{color:#c03;}
 .cf05{color:#f05;}
+.cd55{color:#d55;}
+.ce90{color:#e90}
 .cf60{color:#f60;}
 .cf70{color:#f70;}
 .cf90{color:#f90;}
@@ -185,6 +188,7 @@ button:hover:not(:disabled) .fa-plus-myrotate{transform: rotate(360deg);}
 .c66c{color:#66c;}
 .c66c{color:#66c;}
 .c339{color:#339;}
+.c35c{color:#35c;}
 .cf3c{color:#f3c;}
 .cc39{color:#c39;}
 .c96c{color:#96c;}

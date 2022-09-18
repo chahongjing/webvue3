@@ -47,7 +47,7 @@
         var me = this;
         setTimeout(function () {
           me.$el.parentNode.removeChild(me.$el);
-          me.$destroy(true);
+          // me.$destroy(true);
         }, 200);
       },
       defaultClose: function () {

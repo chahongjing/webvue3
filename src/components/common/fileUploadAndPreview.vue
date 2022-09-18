@@ -34,7 +34,8 @@
 </template>
 
 <script>
-  import comSrv from '@/common/commonService';
+import comSrv from '@/common/commonService';
+import fileService from '@/common/fileService';
   import Viewer from 'viewerjs';
   import 'viewerjs/dist/viewer.css'
   export default {
@@ -65,7 +66,7 @@
           });
         });
       },
-      addFile:function(event) {
+      addFile: async function(event) {
         var inputDOM = this.$refs.inputer;
         if(this.dataBus) {
           this.dataBus.allDisabled = true;
@@ -78,35 +79,53 @@
           }
           return;
         }
+        var me = this
         // 上传图片
+        var fileResult = {progress: 0, fileList: []}
         var formData = new FormData();
         formData.append('busPath', 'workorder');
         for (var i = 0; i < files.length; i++) {
-          formData.append('myfile', files[i]);
+          fileResult.fileList.push({file: files[i], type:0})
         }
-        var me = this;
+        var result = await fileService.uploadFileList(fileResult)
+        for (var i = 0; i < fileResult.fileList.length; i++) {
+          var item = fileResult.fileList[i]
+          var fileTemp = {
+            id: item.data.id,
+            url: item.data.url,
+            fileName: item.data.fileName,
+            domain: me.fileDomain
+          };
+          fileTemp.type = comSrv.getFileMediaType(fileTemp.url);
+          me.files.push(fileTemp);
+        }
+        me.init();
+        me.resetInput();
+        if(me.dataBus) {
+          me.dataBus.allDisabled = false;
+        }
 
-        this.$axios.post('/file/upload', formData).then(function (resp) {
-          if (resp.data.status == ResultStatus.OK.value) {
-            // me.fileDomain = resp.data.value.fileDomain;
-            var list = resp.data.value;
-            // var list = [{url: resp.data.value.url}];
-            for (var i = 0; i < list.length; i++) {
-              var fileTemp = {
-                url: list[i].url,
-                fileName: list[i].fileName,
-                domain: me.fileDomain
-              };
-              fileTemp.type = comSrv.getFileMediaType(fileTemp.url);
-              me.files.push(fileTemp);
-            }
-            me.init();
-          }
-          me.resetInput();
-          if(me.dataBus) {
-            me.dataBus.allDisabled = false;
-          }
-        });
+        // this.$axios.post('/file/upload', formData).then(function (resp) {
+        //   if (resp.data.status == ResultStatus.OK.value) {
+        //     // me.fileDomain = resp.data.value.fileDomain;
+        //     var list = resp.data.value;
+        //     // var list = [{url: resp.data.value.url}];
+        //     for (var i = 0; i < list.length; i++) {
+        //       var fileTemp = {
+        //         url: list[i].url,
+        //         fileName: list[i].fileName,
+        //         domain: me.fileDomain
+        //       };
+        //       fileTemp.type = comSrv.getFileMediaType(fileTemp.url);
+        //       me.files.push(fileTemp);
+        //     }
+        //     me.init();
+        //   }
+        //   me.resetInput();
+        //   if(me.dataBus) {
+        //     me.dataBus.allDisabled = false;
+        //   }
+        // });
       },
       beforeUpload: function (files) {
         var suffixArr = this.fileSuffix || comSrv.pictureSuffix;
@@ -142,7 +161,19 @@
         this.init();
       },
       downloadFile: function(item) {
-        this.$toaster.info('功能建设中。。。')
+        var me = this;
+        if(this.disabled) return;
+        // this.disabled = true
+        if(this.dataBus) {
+          this.dataBus.allDisabled = true
+        }
+        this.$axios.getDownload('/file/download/', {id: item.id, fileName: item.fileName}).then(function (resp) {
+          Utility.downloadAfterAjax(resp.data, resp.headers);
+          // me.disabled = false
+          if(me.dataBus) {
+            me.dataBus.allDisabled = false
+          }
+        });
       },
       getTip: function () {
         var fsArr = this.fileSuffix || [];

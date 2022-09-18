@@ -89,16 +89,16 @@ var commonService = {
     var fileMediaType = this.getFileMediaType(fileName);
     switch (fileMediaType) {
       case this.mediaType.picture: return ['fa-file-image-o', 'c699'];
-      case this.mediaType.audio: return ['fa-file-audio-o', 'c71a'];
-      case this.mediaType.video: return ['fa-file-video-o', 'c82a'];
+      case this.mediaType.audio: return ['fa-file-audio-o', 'ce90'];
+      case this.mediaType.video: return ['fa-file-video-o', 'cc39'];
       case this.mediaType.code: return ['fa-file-code-o', 'c339'];
       case this.mediaType.excel: return ['fa-file-excel-o', 'c393'];
-      case this.mediaType.ppt: return ['fa-file-powerpoint-o', 'cc39'];
-      case this.mediaType.word: return ['fa-file-word-o', 'c39c'];
-      case this.mediaType.pdf: return ['fa-file-pdf-o' ,'cfc0'];
-      case this.mediaType.text: return ['fa-file-text-o'];
+      case this.mediaType.ppt: return ['fa-file-powerpoint-o', 'c82a'];
+      case this.mediaType.word: return ['fa-file-word-o', 'c35c'];
+      case this.mediaType.pdf: return ['fa-file-pdf-o' ,'cd55'];
+      case this.mediaType.text: return ['fa-file-text-o c666'];
       case this.mediaType.zip: return ['fa-file-archive-o', 'c933'];
-      default: return ['fa-file-o']
+      default: return ['fa-file-o c666']
     }
   },
   getFileExtension: function (fileName) {
