@@ -4,6 +4,9 @@
       <button type="button" class="btn btn-outline-purple inline-block" @click="add()" v-authcode='"userList_add"'>
         <i class='fa fa-plus fa-plus-myrotate mr5'></i>添加
       </button>
+      <button type="button" class="btn btn-outline-purple inline-block" @click="showBatchImportModal()" v-authcode='"userList_add"'>
+        <i class='fa fa-cloud-upload mr5'></i>批量导入
+      </button>
     </div>
     <div class='searchbar'>
       <form class='myform form-inline form-group-w280 form-label-w80'>
@@ -115,6 +118,51 @@
         </div>
       </template>
     </common-modal>
+    <common-modal :show-modal='batchImportModal' :options="modalOpt">
+      <template #headerSlot>
+        <div class="modal-header">
+          <h5 class="modal-title">批量导入</h5>
+          <button type="button" class="close" @click='showChangePasswordDialog = false'>
+            <span class='closeicon' title="关闭">&times;</span>
+          </button>
+        </div>
+      </template>
+      <template #bodySlot>
+        <div class="modal-body pr20">
+          <form class='myform form-label-w100 block-form-group'>
+            <div class="form-group">
+              <label class="form-label">文件：</label>
+              <label class="form-content relative mb0" title="点击选择文件">
+                <span class="upload-btn">
+                  <i class="fa fa-upload c71a"></i>
+                </span>
+                <span class="text">个数限制：<span class="font-weight-bold c71a">5</span> 个；每个大小限制：<span class="font-weight-bold c71a">10</span> MB；格式参见说明</span>
+                <input type="file" id='testFile' class="form-control" :disabled="allDisabled"/>
+              </label>
+              <div class='form-info pointer' style="display:inline-block;">
+                <i class='fa fa-file-archive-o cd55' v-tooltip="fileSuffixMemo"></i>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">下载模板：</label>
+              <label class="form-content">
+                <a href="javascript:void(0)" @click="downloadImportTemplate">下载模板</a>
+              </label>
+            </div>
+          </form>
+        </div>
+      </template>
+      <template #footerSlot>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" @click='batchImportModal = false'>
+            <i class='fa fa-times'></i><span>取消</span>
+          </button>
+          <button type="button" class="btn btn-purple" @click='batchImport()'>
+            <i class='fa fa-check'></i><span>确定</span>
+          </button>
+        </div>
+      </template>
+    </common-modal>
   </div>
 </template>
 
@@ -141,7 +189,9 @@
         password: null,
         YesNo: enumMap.YesNo,
         Sex: enumMap.Sex,
-        modalOpt: {width: '350px'}
+        modalOpt: {width: '350px'},
+        batchImportModal: false,
+        fileSuffixMemo:'支持格式：.xls'
       }
     },
     methods: {
@@ -245,6 +295,52 @@
           if (resp.data.status == ResultStatus.OK.value) {
             me.$toaster.success('修改密码成功！');
             me.showChangePasswordDialog = false;
+          }
+        });
+      },
+      showBatchImportModal() {
+        this.batchImportModal = true
+      },
+      batchImport() {
+        var me = this;
+        me.allDisabled = true;
+        var files = $('#testFile')[0].files;
+        if(!files || files.length == 0) {
+          me.$toaster.warning('请选择excel！');
+          return;
+        }
+        var formData = new FormData();
+        if (files && files.length > 0) {
+          for (var i = 0; i < files.length; i++) {
+            formData.append('myfile', files[i]);
+          }
+        }
+        this.$axios.postDownload('/user/batchImportUser', formData).then(function (resp) {
+          me.allDisabled = false;
+          // if(isDownloadError) {
+            if(resp.data.byteLength == 0) {
+              me.$toaster.success('上传成功！');
+            } else {
+              Utility.downloadAfterAjax(resp.data, resp.headers);
+            }
+          // } else {
+          //   resp = JSON.parse(Utility.readArrayBufferAsText(resp.data));
+          //   if (resp.status == ResultStatus.OK.value) {
+          //     me.$toaster.success(resp.value || '上传成功！');
+          //   } else {
+          //     me.$toaster.warning(resp.value.join("。"));
+          //   }
+          // }
+        });
+      },
+      downloadImportTemplate() {
+        var me = this
+        this.$axios.getDownload('/user/downloadImportUserTemplate').then(function (resp) {
+          me.allDisabled = false;
+          if(resp.data.byteLength == 0) {
+            me.$toaster.success('下载模板失败！');
+          } else {
+            Utility.downloadAfterAjax(resp.data, resp.headers);
           }
         });
       }

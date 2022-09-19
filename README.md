@@ -41,7 +41,5 @@ npm run lint
 ```
 
 1. moment
-3. imgSlider
-4. dateTimeRangePicker2
-5. 进度条
-6. modal.$destory
+2. imgSlider
+3. dateTimeRangePicker2
