@@ -7,6 +7,9 @@
       <button type="button" class="btn btn-outline-purple inline-block" @click="showBatchImportModal()" v-authcode='"userList_add"'>
         <i class='fa fa-cloud-upload mr5'></i>批量导入
       </button>
+      <button type="button" class="btn btn-outline-purple inline-block" @click="download()" v-authcode='"userList_add"'>
+        <i class='fa fa-cloud-download mr5'></i>导出
+      </button>
     </div>
     <div class='searchbar'>
       <form class='myform form-inline form-group-w280 form-label-w80'>
@@ -118,43 +121,48 @@
         </div>
       </template>
     </common-modal>
-    <common-modal :show-modal='batchImportModal' :options="modalOpt">
+    <common-modal :show-modal='batchImportModal' :options="importModalOpt">
       <template #headerSlot>
         <div class="modal-header">
           <h5 class="modal-title">批量导入</h5>
-          <button type="button" class="close" @click='showChangePasswordDialog = false'>
+          <button type="button" class="close" @click='closeImportModal'>
             <span class='closeicon' title="关闭">&times;</span>
           </button>
         </div>
       </template>
       <template #bodySlot>
         <div class="modal-body pr20">
-          <form class='myform form-label-w100 block-form-group'>
-            <div class="form-group">
+          <form class='myform infotip form-label-w60 block-form-group import-user-form'>
+            <div class="form-group file-box">
               <label class="form-label">文件：</label>
               <label class="form-content relative mb0" title="点击选择文件">
                 <span class="upload-btn">
                   <i class="fa fa-upload c71a"></i>
                 </span>
-                <span class="text">个数限制：<span class="font-weight-bold c71a">5</span> 个；每个大小限制：<span class="font-weight-bold c71a">10</span> MB；格式参见说明</span>
-                <input type="file" id='testFile' class="form-control" :disabled="allDisabled"/>
+                <span class="text">格式限制：<span class="font-weight-bold c71a">xls, xlsx</span> ；数据量限制：<span class="font-weight-bold c71a">10000</span> 条；</span>
+                <input type="file" id='testFile' class="form-control" @change="fileChange($event)" :disabled="allDisabled"/>
               </label>
-              <div class='form-info pointer' style="display:inline-block;">
-                <i class='fa fa-file-archive-o cd55' v-tooltip="fileSuffixMemo"></i>
+            </div>
+            <div class="form-group" v-if="selectFile && selectFile.fileName">
+              <label class="form-label">&nbsp;</label>
+              <div class="form-content  form-content-label">
+                <i :class="getFileTypeIcon(selectFile)"></i>
+                <span v-text="selectFile.fileName"></span>
+                <i class="fa fa-times fr mt3 cf05 pointer" @click="resetFile"></i>
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">下载模板：</label>
-              <label class="form-content">
+              <label class="form-label">模板：</label>
+              <div class="form-content form-content-label">
                 <a href="javascript:void(0)" @click="downloadImportTemplate">下载模板</a>
-              </label>
+              </div>
             </div>
           </form>
         </div>
       </template>
       <template #footerSlot>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click='batchImportModal = false'>
+          <button type="button" class="btn btn-secondary" @click='closeImportModal'>
             <i class='fa fa-times'></i><span>取消</span>
           </button>
           <button type="button" class="btn btn-purple" @click='batchImport()'>
@@ -190,8 +198,10 @@
         YesNo: enumMap.YesNo,
         Sex: enumMap.Sex,
         modalOpt: {width: '350px'},
+        importModalOpt: {width: '450px'},
         batchImportModal: false,
-        fileSuffixMemo:'支持格式：.xls'
+        fileSuffixMemo:'支持格式：.xls',
+        selectFile: {}
       }
     },
     methods: {
@@ -320,6 +330,8 @@
           // if(isDownloadError) {
             if(resp.data.byteLength == 0) {
               me.$toaster.success('上传成功！');
+              me.queryList()
+              me.closeImportModal()
             } else {
               Utility.downloadAfterAjax(resp.data, resp.headers);
             }
@@ -342,6 +354,48 @@
           } else {
             Utility.downloadAfterAjax(resp.data, resp.headers);
           }
+        });
+      },
+      fileChange(e) {
+        let fileInput = e.target
+        if(fileInput.files && fileInput.files.length > 0) {
+          this.selectFile.fileName = fileInput.files[0].name
+        } else {
+          this.selectFile.fileName = null
+        }
+      },
+      getFileTypeIcon: function(item) {
+        var obj = {fa: true}
+        if(!item || !item.fileName) {
+          return obj
+        }
+        commonSrv.getFileFaType(item.fileName).forEach(cls => obj[cls] = true)
+        return obj
+      },
+      resetFile() {
+        document.querySelector('form.import-user-form').reset()
+        this.selectFile = {}
+      },
+      closeImportModal(){
+        this.batchImportModal = false
+        this.resetFile()
+      },
+      download() {
+        var me = this;
+        me.allDisabled = true;
+        this.$axios.getDownload('/user/download', {
+          name: this.searchKey,
+          sex: this.sexValue,
+          nameOrderBy: this.nameOrderBy.value,
+          codeOrderBy: this.codeOrderBy.value,
+          createdOnOrderBy: this.createdOnOrderBy.value
+        }).then(function (resp) {
+          if(resp.data.byteLength == 0) {
+            me.$toaster.success('导出失败！');
+          } else {
+            Utility.downloadAfterAjax(resp.data, resp.headers);
+          }
+          me.allDisabled = false;
         });
       }
     },

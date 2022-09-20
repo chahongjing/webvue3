@@ -351,11 +351,5 @@ export default {
   .modal-header {
     border-bottom: none;
   }
-  .file-box .form-content{cursor:pointer;overflow: hidden}
-  .file-box .upload-btn{display:inline-block;line-height:30px;width:33px;height:33px;border:2px dashed #b9b;transition: 0.2s;}
-  .file-box .upload-btn i{margin:0 auto auto 8px;transition: 0.2s;}
-  .file-box .text{display:inline-block;margin-left:5px;}
-  .file-box input[type=file]{opacity:0;position: absolute;cursor: pointer;left: -100px;top: 0;width: calc(100% + 100px)!important;}
-  .file-box:hover .upload-btn{border-color: #71a}
-  .file-box:hover .upload-btn i{transform: scale(1.3)}
+
 </style>
