@@ -4,10 +4,10 @@
       <button type="button" class="btn btn-outline-purple inline-block" @click="add()" v-authcode='"userList_add"'>
         <i class='fa fa-plus fa-plus-myrotate mr5'></i>添加
       </button>
-      <button type="button" class="btn btn-outline-purple inline-block" @click="showBatchImportModal()" v-authcode='"userList_add"'>
+      <button type="button" class="btn btn-outline-purple inline-block ml10" @click="showBatchImportModal()" v-authcode='"userList_add"'>
         <i class='fa fa-cloud-upload mr5'></i>批量导入
       </button>
-      <button type="button" class="btn btn-outline-purple inline-block" @click="download()" v-authcode='"userList_add"'>
+      <button type="button" class="btn btn-outline-purple inline-block ml10" @click="download()" v-authcode='"userList_add"'>
         <i class='fa fa-cloud-download mr5'></i>导出
       </button>
     </div>
@@ -145,18 +145,29 @@
             </div>
             <div class="form-group" v-if="selectFile && selectFile.fileName">
               <label class="form-label">&nbsp;</label>
-              <div class="form-content  form-content-label">
+              <div class="form-content form-content-label">
                 <i :class="getFileTypeIcon(selectFile)"></i>
                 <span v-text="selectFile.fileName"></span>
                 <i class="fa fa-times fr mt3 cf05 pointer" @click="resetFile"></i>
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">模板：</label>
-              <div class="form-content form-content-label">
-                <a href="javascript:void(0)" @click="downloadImportTemplate">下载模板</a>
+              <label class="form-label colon">模板</label>
+              <div class="form-content">
+                <label class="radio_checkbox mt2" v-for="item in excelTypeList">
+                  <input type='radio' name="excelType" :value="item.code" v-model="excelType"/>
+                  <i></i>
+                  <span v-text="item.name"></span>
+                </label>
+                <a href="javascript:void(0)" class="inline-block mt5" @click="downloadImportTemplate">下载模板</a>
               </div>
             </div>
+<!--            <div class="form-group">-->
+<!--              <label class="form-label">模板：</label>-->
+<!--              <div class="form-content form-content-label">-->
+<!--                <a href="javascript:void(0)" @click="downloadImportTemplate">下载模板</a>-->
+<!--              </div>-->
+<!--            </div>-->
           </form>
         </div>
       </template>
@@ -191,7 +202,7 @@
         nameOrderBy: {value: enumMap.OrderByType.ASC.value},
         codeOrderBy: {value: null},
         createdOnOrderBy: {value: null},
-        pager: {pageNum: 1, pageSize: 5, loading: true},
+        pager: {pageNum: 1, pageSize: 10, loading: true},
         showChangePasswordDialog: false,
         code: null,
         password: null,
@@ -201,7 +212,9 @@
         importModalOpt: {width: '450px'},
         batchImportModal: false,
         fileSuffixMemo:'支持格式：.xls',
-        selectFile: {}
+        selectFile: {},
+        excelType: 1,
+        excelTypeList: [{code:1,name:'xls'}, {code:2,name:'xlsx'}]
       }
     },
     methods: {
@@ -347,7 +360,7 @@
       },
       downloadImportTemplate() {
         var me = this
-        this.$axios.getDownload('/user/downloadImportUserTemplate').then(function (resp) {
+        this.$axios.getDownload('/user/downloadImportUserTemplate?type=' + this.excelType).then(function (resp) {
           me.allDisabled = false;
           if(resp.data.byteLength == 0) {
             me.$toaster.success('下载模板失败！');

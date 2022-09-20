@@ -250,12 +250,14 @@ a[disabled]{pointer-events:none;color:#333;}
 .mt4{margin-top:4px;}
 .ml5{margin-left:5px;}
 .mr5{margin-right:5px;}
+.ml10{margin-left:10px;}
 .mr10{margin-right:10px;}
 .ml20{margin-left:20px;}
 .mt20{margin-top:20px;}
 .ml0{margin-left:0px;}
 .mr0{margin-right:0px;}
 .mt0{margin-top:0px;}
+.mt5{margin-top:5px;}
 .mb0{margin-bottom:0px;}
 
 .p0{padding:0}
