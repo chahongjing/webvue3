@@ -73,7 +73,7 @@
             <a class='inline-block mybtn' v-authcode='"userList_resetPassword"' href='javascript:void(0)' @click='setPassword(item)' title='修改密码'>
               <i class='fa fa-key c393'></i>
             </a>
-            <a class='inline-block mybtn' v-authcode='"userList_delete"' href='javascript:void(0)' @click='deleteItem(item)' title='删除' v-if='item.isSystem != YesNo.YES.value'>
+            <a class='inline-block mybtn' v-authcode='"userList_delete"' href='javascript:void(0)' @click='deleteItem(item)' title='删除' v-if='canDelete(item)'>
               <i class='fa fa-trash cf05'></i>
             </a>
           </td>
@@ -386,8 +386,9 @@
         return obj
       },
       resetFile() {
-        document.querySelector('form.import-user-form').reset()
+        document.querySelector('form.import-user-form input[type=file]').value = ''
         this.selectFile = {}
+        this.excelType = 1
       },
       closeImportModal(){
         this.batchImportModal = false
@@ -410,6 +411,16 @@
           }
           me.allDisabled = false;
         });
+      },
+      canDelete(entity) {
+        if(!entity) return false
+        if(entity.type === window.enumMap.UserTypeEnum.SUPER_ADMIN.value) {
+          return false
+        }
+        var currUser = this.getUser();
+        if(currUser == null) return false
+        if(currUser.id == entity.id) return false
+        return true
       }
     },
     computed: {
