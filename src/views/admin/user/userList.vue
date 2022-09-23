@@ -7,7 +7,7 @@
       <button type="button" class="btn btn-outline-purple inline-block ml10" @click="showBatchImportModal()" v-authcode='"userList_add"'>
         <i class='fa fa-cloud-upload mr5'></i>批量导入
       </button>
-      <button type="button" class="btn btn-outline-purple inline-block ml10" @click="download()" v-authcode='"userList_add"'>
+      <button type="button" class="btn btn-outline-purple inline-block ml10" @click="download()" v-authcode='"userList_add"' :disabled="allDisabled">
         <i class='fa fa-cloud-download mr5'></i>导出
       </button>
     </div>
@@ -176,7 +176,7 @@
           <button type="button" class="btn btn-secondary" @click='closeImportModal'>
             <i class='fa fa-times'></i><span>取消</span>
           </button>
-          <button type="button" class="btn btn-purple" @click='batchImport()'>
+          <button type="button" class="btn btn-purple" @click='batchImport()' :disabled="allDisabled">
             <i class='fa fa-check'></i><span>确定</span>
           </button>
         </div>
@@ -360,6 +360,8 @@
       },
       downloadImportTemplate() {
         var me = this
+        if(this.allDisabled) return
+        this.allDisabled = true
         this.$axios.getDownload('/user/downloadImportUserTemplate?type=' + this.excelType).then(function (resp) {
           me.allDisabled = false;
           if(resp.data.byteLength == 0) {
@@ -367,6 +369,7 @@
           } else {
             Utility.downloadAfterAjax(resp.data, resp.headers);
           }
+          me.allDisabled = false
         });
       },
       fileChange(e) {
