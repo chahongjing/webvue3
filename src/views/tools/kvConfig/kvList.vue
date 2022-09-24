@@ -1,7 +1,7 @@
 <template>
   <div class='maincontent listcontent'>
     <div class='list-header-but-group'>
-      <button type="button" class="btn btn-outline-purple inline-block" @click="add()" v-authcode='"userList_add"'>
+      <button type="button" class="btn btn-outline-purple inline-block mr10" @click="add()" v-authcode='"userList_add"'>
         <i class='fa fa-plus fa-plus-myrotate mr5'></i>添加
       </button>
       <button type="button" class="btn btn-outline-purple inline-block" @click="removeAllCache()" v-authcode='"userList_add"'>
